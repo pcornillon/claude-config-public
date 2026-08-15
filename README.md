@@ -4,7 +4,7 @@
 every repo, a project template, and hooks that keep a record of what was done and why.
 
 Built from a configuration in daily use on research projects, with the author's personal
-material removed. Generated 2026-08-15 19:51 UTC from source commit `a5c7115`.
+material removed. Generated 2026-08-15 19:56 UTC from source commit `ed76cfa`.
 
 ## What you get
 
@@ -37,6 +37,8 @@ which ones are waiting on you. It needs Hammerspoon; `./check-prereqs.sh switchb
 tells you what is missing.
 
 ## Licence and provenance
+
+**MIT** — see `LICENSE`. Use it, change it, ship it; keep the copyright notice.
 
 The rules in `global/CLAUDE.md` arrive as **one person's** working rules, on purpose: a
 specific set that earned each of its lines beats a generic set nobody follows. Names,
