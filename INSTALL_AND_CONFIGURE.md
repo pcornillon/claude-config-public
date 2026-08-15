@@ -80,8 +80,12 @@ This repo is regenerated from the configuration it was built from, and pushed to
 same branch — so the history is continuous and an update is an ordinary pull:
 
 ```sh
-git pull            # or "Sync fork" on GitHub, if you forked rather than cloned
+cd <where you cloned this>
+git pull            # or press "Sync fork" on GitHub, if you forked rather than cloned
+./install.sh        # re-points hook paths and re-fills your name; safe to re-run
 ```
+
+`CHANGELOG.md` says what each build brought.
 
 Git merges anything you have not touched. **You will get conflicts exactly where you
 edited the same lines upstream changed** — most often in `global/CLAUDE.md`, which is
