@@ -1,0 +1,126 @@
+{
+  "tui": "fullscreen",
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "Glob",
+      "Grep",
+      "Bash"
+    ],
+    "ask": [
+      "Bash(rm *)",
+      "Bash(rm)",
+      "Bash(rmdir *)",
+      "Bash(mv *)",
+      "Bash(trash *)",
+      "Bash(git rm *)",
+      "Bash(git mv *)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/Git_Repos/claude-config-public/hooks/claude-usage-log.sh\"",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "bash \"$HOME/Git_Repos/claude-config-public/hooks/claude-prose-log.sh\"",
+            "timeout": 20
+          },
+          {
+            "type": "command",
+            "command": "bash \"$HOME/Git_Repos/claude-config-public/hooks/claude-dashboard-state.sh\" done",
+            "timeout": 5,
+            "async": true
+          },
+          {
+            "type": "command",
+            "command": "bash \"$HOME/Git_Repos/claude-config-public/hooks/claude-log-guard.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/Git_Repos/claude-config-public/hooks/claude-dashboard-state.sh\" working",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/Git_Repos/claude-config-public/hooks/claude-dashboard-state.sh\" waiting",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/Git_Repos/claude-config-public/hooks/claude-handoff-guard.sh\"",
+            "timeout": 10,
+            "if": "Bash(git push *)"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/Git_Repos/claude-config-public/hooks/claude-log-debt.sh\"",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "bash \"$HOME/Git_Repos/claude-config-public/hooks/claude-cwd-guard.sh\"",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "bash \"$HOME/Git_Repos/claude-config-public/hooks/claude-dashboard-state.sh\" idle",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/Git_Repos/claude-config-public/hooks/claude-dashboard-state.sh\" gone",
+            "timeout": 5,
+            "async": true
+          },
+          {
+            "type": "command",
+            "command": "bash \"$HOME/Git_Repos/claude-config-public/hooks/claude-log-debt.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
