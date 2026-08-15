@@ -4,7 +4,7 @@
 every repo, a project template, and hooks that keep a record of what was done and why.
 
 Built from a configuration in daily use on research projects, with the author's personal
-material removed. Generated 2026-08-15 19:56 UTC from source commit `ed76cfa`.
+material removed. Generated 2026-08-15 19:57 UTC from source commit `ed76cfa`.
 
 ## What you get
 
