@@ -4,7 +4,7 @@
 every repo, a project template, and hooks that keep a record of what was done and why.
 
 Built from a configuration in daily use on research projects, with the author's personal
-material removed. Generated 2026-08-15 19:57 UTC from source commit `ed76cfa`.
+material removed. Generated 2026-08-17 02:36 UTC from source commit `c358dbf`.
 
 ## What you get
 
@@ -21,13 +21,60 @@ material removed. Generated 2026-08-15 19:57 UTC from source commit `ed76cfa`.
 
 ## Start here
 
+Six steps, one command each. Steps 1–2 get you a copy you can edit and keep; 3–5
+install it; 6 proves it worked.
+
+### 1. Fork this repo
+
 ```sh
-./check-prereqs.sh      # what this needs, and how to get anything missing
-./install.sh            # symlinks global/ into ~/.claude/
+gh repo fork pcornillon/claude-config-public --clone=false
 ```
 
-Then read **INSTALL_AND_CONFIGURE.md**, which walks through both, and **Task #1** in
-`TASKS.md`: making `global/CLAUDE.md` yours.
+Or press **Fork** on GitHub. Fork rather than clone: Task #1 is rewriting
+`global/CLAUDE.md` into your own rules, and a fork is where those edits live.
+
+### 2. Clone your fork
+
+```sh
+git clone https://github.com/<your-github-username>/claude-config-public.git
+cd claude-config-public
+```
+
+Wherever you keep repos. Every command below runs from inside that directory.
+
+### 3. Tell git your name
+
+```sh
+git config --global user.name "Your Name"
+```
+
+`install.sh` writes this name into your rules file. Do it first: with no git name
+set, it falls back to your Unix login name.
+
+### 4. Check what is missing
+
+```sh
+./check-prereqs.sh
+```
+
+### 5. Install
+
+```sh
+./install.sh
+```
+
+### 6. Restart `claude`, then confirm
+
+```sh
+./install.sh --check
+```
+
+Hook configuration is read at session start, so quit `claude` and start it again
+before checking anything.
+
+Then read `INSTALL_AND_CONFIGURE.md`: the same six steps with the reasons, how to
+check the hooks are really running, and two more steps — making the rules yours
+(**Task #1** in `TASKS.md`) and scaffolding your first project.
 
 ## A companion, optional
 
