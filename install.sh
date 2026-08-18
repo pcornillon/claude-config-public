@@ -209,9 +209,9 @@ effect in a session that is already running. Start a NEW session, then confirm:
   1. ~/.claude/archive/usage-log.csv         gains a row for the new session
   2. ~/.claude/archive/transcripts/<id>.md   appears
   3. ~/.hammerspoon/claude_state/<id>.json  updates (Hammerspoon machines only)
-  4. end a turn without writing its `## P` entry in sessions/ — a "log guard
-     (warn-only)" message should name the gap (claude-log-guard.sh, Task #3)
+  4. end a turn without writing its `## P` entry in SESSIONS/ — a "log guard
+     (warn-only)" message should name the gap (claude-log-guard.sh)
   5. exit that session while it is still behind, then start another one in the
-     same repo — it should open knowing about the debt (claude-log-debt.sh,
-     Task #5). The breadcrumb file is ~/.claude/log-debt.jsonl, machine-local.
+     same repo — it should open knowing about the debt (claude-log-debt.sh).
+     The breadcrumb file is ~/.claude/log-debt.jsonl, machine-local.
 EOF

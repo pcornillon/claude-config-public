@@ -4,7 +4,7 @@
 every repo, a project template, and hooks that keep a record of what was done and why.
 
 Built from a configuration in daily use on research projects, with the author's personal
-material removed. Generated 2026-08-17 02:36 UTC from source commit `c358dbf`.
+material removed. Generated 2026-08-17 02:55 UTC from source commit `ef5fd34`.
 
 ## What you get
 
@@ -21,60 +21,26 @@ material removed. Generated 2026-08-17 02:36 UTC from source commit `c358dbf`.
 
 ## Start here
 
-Six steps, one command each. Steps 1–2 get you a copy you can edit and keep; 3–5
-install it; 6 proves it worked.
-
-### 1. Fork this repo
+Type these in order. Fork first — rewriting the rules file is the point of this repo,
+and those edits need a repo of your own to live in.
 
 ```sh
-gh repo fork pcornillon/claude-config-public --clone=false
-```
+gh repo fork pcornillon/claude-config-public --clone=false   # or press Fork on GitHub
 
-Or press **Fork** on GitHub. Fork rather than clone: Task #1 is rewriting
-`global/CLAUDE.md` into your own rules, and a fork is where those edits live.
-
-### 2. Clone your fork
-
-```sh
+cd ~/Git_Repos                                               # wherever you keep repos
 git clone https://github.com/<your-github-username>/claude-config-public.git
 cd claude-config-public
+
+git config --global user.name "Your Name"    # install.sh writes this into your rules
+./check-prereqs.sh                           # reports what is missing; installs nothing
+./install.sh                                 # links global/ into ~/.claude/
 ```
 
-Wherever you keep repos. Every command below runs from inside that directory.
+Then quit `claude` and start it again — the payload is read at session start.
 
-### 3. Tell git your name
-
-```sh
-git config --global user.name "Your Name"
-```
-
-`install.sh` writes this name into your rules file. Do it first: with no git name
-set, it falls back to your Unix login name.
-
-### 4. Check what is missing
-
-```sh
-./check-prereqs.sh
-```
-
-### 5. Install
-
-```sh
-./install.sh
-```
-
-### 6. Restart `claude`, then confirm
-
-```sh
-./install.sh --check
-```
-
-Hook configuration is read at session start, so quit `claude` and start it again
-before checking anything.
-
-Then read `INSTALL_AND_CONFIGURE.md`: the same six steps with the reasons, how to
-check the hooks are really running, and two more steps — making the rules yours
-(**Task #1** in `TASKS.md`) and scaffolding your first project.
+`INSTALL_AND_CONFIGURE.md` is the same sequence with what each command prints, how to
+tell it worked, and what to do when it doesn't. Read it if anything above is unclear.
+`TASKS.md` Task #1 is the one that matters afterwards: making `global/CLAUDE.md` yours.
 
 ## A companion, optional
 
