@@ -2,13 +2,25 @@
 description: Scaffold a new Claude project from the standard template
 ---
 
-Create a new Claude project at `~/Git_Repos/$1` using the standard spine.
+Create a new Claude project using the standard spine.
 
 If `$1` is empty, ask for the project name first and stop.
 
+## Resolve these two paths first — never assume `~/Git_Repos`
+
+```sh
+CONFIG=$(dirname "$(dirname "$(readlink ~/.claude/commands)")")   # this configuration
+BASE=$(dirname "$CONFIG")                                         # where repos are kept
+```
+
+`~/.claude/commands` is a symlink into the configuration repo, laid by `install.sh`, so
+this resolves wherever it was cloned. The template is
+`$CONFIG/global/templates/project/` and the Finder tagger is `$CONFIG/tag-spine.sh`.
+`$BASE` is only the **default** home for the new project — the interview confirms it.
+
 ## Steps
 
-1. **Refuse to clobber.** If `~/Git_Repos/$1` already exists, say so and stop.
+1. **Refuse to clobber.** If the chosen directory already exists, say so and stop.
 
 2. **Interview before writing.** Ask, in one message, using AskUserQuestion where the
    answers are a choice:
@@ -16,10 +28,13 @@ If `$1` is empty, ask for the project name first and stop.
    - Is there a single idea that makes it tractable? (Optional — skip if not.)
    - Does it need `PLAN.md`? Only if it is built in phases.
    - What are its hard constraints — the things that must never be done?
+   - Where should it live? Offer `$BASE/$1` as the default and accept any other path;
+     `$BASE` is where this configuration happens to be cloned, which is a good guess and
+     nothing more.
    Do not guess these. A template filled with plausible invention is worse than one
    with gaps.
 
-3. **Copy the template** from `~/Git_Repos/claude-config-public/global/templates/project/`
+3. **Copy the template** from `$CONFIG/global/templates/project/`
    and substitute: `{{PROJECT}}`, `{{WHAT}}`, `{{BIG_IDEA}}`, `{{LAYOUT}}`,
    `{{CONVENTIONS}}`, `{{GUARDRAILS}}`, `{{ONE_LINE}}`, `{{FIRST_TASK}}`,
    `{{WHAT_ONE_LINE}}`, `{{PRODUCES}}`, `{{STATE}}`,
@@ -48,7 +63,7 @@ If `$1` is empty, ask for the project name first and stop.
 8. **Do not create a GitHub remote.** That is outward-facing; offer, and let {{OWNER}}
    decide.
 
-9. **Tag the spine folders for Finder** — `~/Git_Repos/claude-config-public/tag-spine.sh <repo>`
+9. **Tag the spine folders for Finder** — `$CONFIG/tag-spine.sh <repo>`
    (D26). Tags are extended attributes, so git does not carry them; this has to be run
    once per machine per project, including after a fresh clone.
 
