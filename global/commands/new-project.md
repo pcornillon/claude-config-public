@@ -54,9 +54,19 @@ this resolves wherever it was cloned. The template is
    "The one idea that makes this tractable" heading is noise; no heading is honest.
    Never leave `{{...}}` in a committed file.
 
-7. **`git init`**, then open the session log
-   `SESSIONS/<YYYY-MM-DD>_<HHMM>_<TZ>_<host>.md` and start `LOG.md` — the session
-   protocol applies from the first prompt, not from the second. **The session log's
+7. **`git init`**, then open the session log **inside the project you just created** —
+   `<project>/SESSIONS/<YYYY-MM-DD>_<HHMM>_<TZ>_<host>.md` — and start `LOG.md`. The
+   session protocol applies from the first prompt, not from the second.
+
+   **Do not weigh D34 here.** The repo whose files changed is the one you have just
+   made, whatever directory the session was launched from and whether or not that
+   directory is a repo at all. D34 is for a session that works across two *existing*
+   repos.
+
+   In the log's header, give the command that rebuilds it, with `$CONFIG` already
+   expanded to a real path — `<config>/session-transcript.sh <log>`. A header that
+   names a path which does not exist on this machine is why a log stays
+   placeholder-shaped. **The session log's
    second line must be `<!-- session: <session-id> -->`**; the guards match on that
    comment and never on the filename, so a log without it is invisible to them.
 

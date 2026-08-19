@@ -4,7 +4,7 @@
 every repo, a project template, and hooks that keep a record of what was done and why.
 
 Built from a configuration in daily use on research projects, with the author's personal
-material removed. Generated 2026-08-18 17:02 UTC from source commit `9851f20`.
+material removed. Generated 2026-08-19 01:33 UTC from source commit `2772f09`.
 
 ## What you get
 
@@ -127,23 +127,39 @@ that `./check-prereqs.sh switchboard` checks for it.
 cd <base-folder>
 brew install --cask hammerspoon     # then launch it once
 git clone https://github.com/pcornillon/claude-switchboard.git
+cd claude-switchboard
+./install.sh
 ```
 
-Two steps a script cannot do for you:
+`install.sh` works out where the repo is and where you keep repos, writes both into
+`~/.hammerspoon/init.lua` between two markers, and restarts Hammerspoon. Three things
+worth knowing:
 
-1. **Grant Accessibility to Hammerspoon** — System Settings → Privacy & Security →
-   Accessibility. Without it the panel loads and lists sessions but every label comes
-   out blank.
-2. **Point Hammerspoon at the clone** by copying the three lines of
-   `claude-switchboard/init.lua.example` into `~/.hammerspoon/init.lua`, adjusting the
-   path if you cloned somewhere other than `~/Git_Repos`. Then reload Hammerspoon and
-   look for the panel.
+- **`./install.sh --check`** says later whether a machine is still wired up, changing
+  nothing — the same idea as the one in this repo.
+- **`./install.sh --hooks`** adds the **red** dot, the one that says a session is
+  waiting on *you*. It merges five entries into `~/.claude/settings.json` alongside
+  whatever is already there, backing the file up and refusing to touch it if it does
+  not already parse. Nothing is hand-edited.
+- **`./install.sh --upgrade`** is for a machine where you once wired Hammerspoon up by
+  hand. Without it the install stops rather than start the panel twice; with it, the
+  old loader lines are replaced and the rest of your `init.lua` is left alone.
 
-**If macOS asks for Accessibility again**, after you have edited the panel's Lua and
-reloaded Hammerspoon, you can dismiss it: the permission is granted to Hammerspoon
-itself, not to the code it loads, so granting it once is enough. Confirm in System
-Settings → Privacy & Security → Accessibility that **Hammerspoon** is still enabled if
-you want to be sure.
+**One step no script can do:** grant Accessibility to Hammerspoon — System Settings →
+Privacy & Security → Accessibility. Without it the panel loads and lists your Desktops,
+but every label comes out blank. macOS deliberately prevents software from granting
+this to itself.
+
+**If macOS asks for Accessibility again** — after you edit the panel's Lua and reload —
+you can dismiss it. The permission belongs to Hammerspoon, not to the code it loads, so
+granting it once is enough.
+
+Then look at the screen: the panel should be in a corner. Stronger than reading the
+file, because it answers only if the code really loaded:
+
+```sh
+hs -c "return dd.version"
+```
 
 `claude-switchboard/INSTALL.md` has the rest.
 

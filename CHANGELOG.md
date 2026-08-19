@@ -3,6 +3,10 @@
 Each entry is one build of this starter. The rules it ships are shaped by numbered
 decisions upstream; these are the ones that arrived since the previous build.
 
+## 2026-08-19 01:33 UTC — source `2772f09`
+
+No new decisions. Scripts or wording changed; the rules did not.
+
 ## 2026-08-18 17:02 UTC — source `9851f20`
 
 No new decisions. Scripts or wording changed; the rules did not.

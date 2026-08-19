@@ -3,8 +3,9 @@
 Loaded at the start of every Claude Code session, in every repository.
 Project-specific context lives in that project's own `CLAUDE.md`.
 
-Source of truth: `~/Git_Repos/claude-config-public/global/CLAUDE.md`. Edit it there and
-commit — a change here applies to every repo at once.
+Source of truth: `global/CLAUDE.md` in the configuration repo — `readlink
+~/.claude/CLAUDE.md` prints its path on this machine. Edit it there and commit — a
+change here applies to every repo at once.
 
 Throughout this file, **I** and **me** are {{OWNER}}; **you** is Claude. Where an
 instruction could be read either way, it names its subject explicitly.
@@ -368,8 +369,17 @@ heading sit two sections, in this order and clearly separated:
   prose is what says what came of it.
 
 **Neither is typed by hand.** Both are rebuilt from the session's JSONL by
-`~/Git_Repos/claude-config-public/session-transcript.sh <log>`, which replaces rather than
-appends — run it again whenever more prompts have arrived, and once more at the end.
+`session-transcript.sh`, which lives in the configuration repo. **Resolve its path
+rather than assuming one** — the repo is wherever it was cloned, which is not
+necessarily `~/Git_Repos`:
+
+```sh
+CONFIG=$(dirname "$(dirname "$(readlink ~/.claude/commands)")")
+"$CONFIG/session-transcript.sh" <log>
+```
+
+It replaces rather than appends — run it again whenever more prompts have arrived, and
+once more at the end.
 Two things it carries across every regeneration, and they are the only parts a human
 writes: the header above the first `## P##`, and each entry's **subject line** and
 optional **`### Notes`** block. A verbatim prompt is more authoritative than the
@@ -423,8 +433,8 @@ machine, so a session cannot be resumed from the other one. **Never resume a ses
 that predates a pull which changed files** — start fresh instead. That session holds
 confident beliefs about files that have since changed and has no way to notice.
 The `<host>` segment of a session-log filename comes from
-`scutil --get LocalHostName` — `your-desktop` or `your-laptop` — and **not** from
-`hostname`, which on the laptop returns a VPN DHCP name such as
+`scutil --get LocalHostName` — whatever that returns on the machine you are on — and
+**not** from `hostname`, which on the laptop returns a VPN DHCP name such as
 `a VPN DHCP name`.
 
 **Concurrent sessions in one repo.** I sometimes run two at once on the same
