@@ -1,6 +1,6 @@
 {
-  "source_commit": "2772f09",
-  "built": "2026-08-19 01:33 UTC",
+  "source_commit": "dda2f1d",
+  "built": "2026-08-19 01:37 UTC",
   "decisions": [
     "D1",
     "D2",
@@ -46,5 +46,43 @@
     "D42",
     "D43",
     "D44"
-  ]
+  ],
+  "files": {
+    "prompt-index.sh": "06a4ffca3c1b4af9acee64e9f10b9ecb3a327d37",
+    "check-prereqs.sh": "4bf9f639afe7c4a6022a16b2ddfd823c19a36e19",
+    "LICENSE": "824f91dd5e9b2a0921e3dece8c2b16a3a1794bb2",
+    "session-transcript.sh": "1181978af6287a629d3edbfa0e098aa77d7a6605",
+    "install.sh": "847e03772099c4ecc771da2a28e851cd5da25058",
+    "STATUS.md": "e32d8453a8e034efadda336c031c2425fabe24fc",
+    "INSTALL_AND_CONFIGURE.md": "2ef9cafea6ac6a242dafb22fc0ba6d2125f1a37f",
+    "tag-spine.sh": "bd85ba179601e8c694323999c020448bf13ef862",
+    "README.md": "e9aec78d7df1864f39ab32e09fe8cc88ae71f67d",
+    "TASKS.md": "c3335281bba6e1d9e18cabd3e01c1c295de60b46",
+    "LOG.md": "fdee14abfe16e841ae837fdf4c660759f8d2c525",
+    "CLAUDE.md": "4880323a12bea9eb49e4efab7e2c6a707b8a674a",
+    "DECISIONS.md": "a427e89687ef3eda2a89921fdd034398b97ab240",
+    "LATEX/.gitkeep": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    "ISSUE_ANALYSES/.gitkeep": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    "PRE_CONVERSION/.gitkeep": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    "DOCS/.gitkeep": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    "SESSIONS/.gitkeep": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    "hooks/claude-usage-log.sh": "f54e70e497f058285de4293f9cdecb9bdb485951",
+    "hooks/claude-log-debt.sh": "a2c22c6f3936ee31b353293fb9529d98a3601103",
+    "hooks/claude-handoff-guard.sh": "b74d3d0011f513a032870b8702f09097a85eead3",
+    "hooks/claude-dashboard-state.sh": "cbfd4210b412341364199560f7f644c4430b131f",
+    "hooks/claude-log-guard.sh": "1869b79fcd34067868227ce96aea1b943ff08e21",
+    "hooks/claude-cwd-guard.sh": "1d6d24d6162aee4cbd92523dabda1bfa276d651e",
+    "hooks/claude-prose-log.sh": "f3e43f12a23d2ea80ce2c94d3aa43047003b20bd",
+    "global/settings.json": "4d92515b2eaf37845bfef4507b82fa111f8bb837",
+    "global/CLAUDE.md": "49e879c4dfa18728457cdaf0d0c1df39d1c3d82e",
+    "global/templates/project/STATUS.md": "39413bd6e76c9f36ec7067cda061063f465ba355",
+    "global/templates/project/README.md": "71902fdc6cb50c56417bcaf93912a867d1ed570b",
+    "global/templates/project/TASKS.md": "c8288f1fe72bb73d9f485284034a102974549619",
+    "global/templates/project/LOG.md": "9b4434f30f1fc4a154e804db7b987556cad1a4f8",
+    "global/templates/project/CLAUDE.md": "298253f60ed5d5618f1501b3b21b97658f1090bf",
+    "global/templates/project/DECISIONS.md": "35a4016a78cfe7ed943b042b8033997a39d95563",
+    "global/commands/new-project.md": "db67ce755fab766d4e16706a30e54a544e1ac16e",
+    "global/commands/audit-project.md": "60784b3dd611a786e551d0ec074c9c453bbb29e6",
+    "global/skills/markdown-tables/SKILL.md": "8e762b818ad592282dadf147ee0155b04b7f9766"
+  }
 }
