@@ -3,6 +3,14 @@
 Each entry is one build of this starter. The rules it ships are shaped by numbered
 decisions upstream; these are the ones that arrived since the previous build.
 
+## 2026-08-19 05:16 UTC — source `f5984de`
+
+No new decisions behind this build.
+
+**1 file(s) changed since the previous build**, in:
+
+- the scripts — `session-transcript.sh`
+
 ## 2026-08-19 01:37 UTC — source `dda2f1d`
 
 No new decisions behind this build.

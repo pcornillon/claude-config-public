@@ -1,6 +1,6 @@
 {
-  "source_commit": "dda2f1d",
-  "built": "2026-08-19 01:37 UTC",
+  "source_commit": "f5984de",
+  "built": "2026-08-19 05:16 UTC",
   "decisions": [
     "D1",
     "D2",
@@ -51,7 +51,7 @@
     "prompt-index.sh": "06a4ffca3c1b4af9acee64e9f10b9ecb3a327d37",
     "check-prereqs.sh": "4bf9f639afe7c4a6022a16b2ddfd823c19a36e19",
     "LICENSE": "824f91dd5e9b2a0921e3dece8c2b16a3a1794bb2",
-    "session-transcript.sh": "1181978af6287a629d3edbfa0e098aa77d7a6605",
+    "session-transcript.sh": "a295c81e4695640aa0f7700346a3288e7f657303",
     "install.sh": "847e03772099c4ecc771da2a28e851cd5da25058",
     "STATUS.md": "e32d8453a8e034efadda336c031c2425fabe24fc",
     "INSTALL_AND_CONFIGURE.md": "2ef9cafea6ac6a242dafb22fc0ba6d2125f1a37f",

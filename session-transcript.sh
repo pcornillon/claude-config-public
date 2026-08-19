@@ -50,6 +50,15 @@ HARNESS = ("<system-reminder>", "<command-name>", "<command-message>", "<command
            "<local-command-stdout>", "<local-command-stderr>", "<user-memory-input>",
            "[Request interrupted", "<task-notification>")
 
+# A slash command IS a prompt — the owner typed it — but the harness rewrites the turn
+# into a <command-*> wrapper that HARNESS above would drop. Dropping it does not just
+# lose the entry: every following response is appended to the PREVIOUS prompt, so one
+# unrecognised slash command silently merges two entries and shifts every subject line
+# after it by one. Matched before the HARNESS test and rendered as typed.
+SLASH = re.compile(r"^(?:<command-message>.*?</command-message>\s*)?"
+                   r"<command-name>(.*?)</command-name>"
+                   r"(?:\s*<command-args>(.*?)</command-args>)?\s*$", re.S)
+
 # --- what the assistant did, in one line per call -------------------------
 # The argument that identifies the call, per tool. Anything not named here is
 # rendered as the bare tool name.
@@ -83,6 +92,10 @@ def user_text(rec):
     else:
         return None
     s = s.strip()
+    m = SLASH.match(s)
+    if m:
+        name, arg = (m.group(1) or "").strip(), (m.group(2) or "").strip()
+        return (name + " " + arg).strip() or None
     return None if (not s or s.startswith(HARNESS)) else s
 
 
