@@ -167,6 +167,39 @@ check_owned_hook() {           # <hook filename> <owning checkout> <path within 
 check_owned_hook claude-dashboard-state.sh \
     "$HOME/Git_Repos/claude-switchboard" claude-dashboard-state.sh
 
+# ---------------------------------------------------------------------------
+# Guard 4: is the published starter behind this repo? (D47)
+#
+# The starter is a BUILD PRODUCT. Committing here changes nothing that anyone
+# else can pull until make-starter.sh is run and the result pushed — and nothing
+# used to say so. On 2026-09-06 a fix sat here for two hours with no rebuild
+# behind it, and on 2026-08-19 the same gap sent a whole session chasing a
+# change that had never been published.
+#
+# Reported here rather than in make-starter.sh, because by the time you are
+# running the build you are already fixing it. This is the command that answers
+# "is this machine right", and staleness is part of that answer.
+#
+# Silent for anyone but the person who publishes it: it needs BOTH checkouts,
+# and it skips when the starter it finds is this very repo — which is what a
+# student's clone looks like.
+# ---------------------------------------------------------------------------
+starter="$HOME/Git_Repos/claude-config-public"
+if [ -d "$REPO/.git" ] && [ -d "$starter/.git" ] && [ "$starter" != "$REPO" ]; then
+    built=$(git -C "$starter" show HEAD:.starter-build 2>/dev/null \
+            | sed -n 's/.*"source_commit"[^"]*"\([^"]*\)".*/\1/p' | head -1)
+    if [ -n "$built" ] && git -C "$REPO" cat-file -e "$built^{commit}" 2>/dev/null; then
+        behind=$(git -C "$REPO" rev-list --count "$built..HEAD" 2>/dev/null || echo 0)
+        if [ "${behind:-0}" -gt 0 ]; then
+            ylw "WARN the published starter was built from $built — $behind commit(s) ago."
+            ylw "     Nothing anyone pulls has changed since. To publish:"
+            ylw "     ./make-starter.sh -o \"$starter\" --force   then commit and push there"
+        else
+            grn "OK   the published starter is current ($built)"
+        fi
+    fi
+fi
+
 mkdir -p "$CLAUDE_DIR" 2>/dev/null
 
 # ---------------------------------------------------------------------------

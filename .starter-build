@@ -1,6 +1,6 @@
 {
-  "source_commit": "a1415c9",
-  "built": "2026-09-06 16:28 UTC",
+  "source_commit": "2cb5c50",
+  "built": "2026-09-06 16:40 UTC",
   "decisions": [
     "D1",
     "D2",
@@ -47,14 +47,15 @@
     "D43",
     "D44",
     "D45",
-    "D46"
+    "D46",
+    "D47"
   ],
   "files": {
     "prompt-index.sh": "06a4ffca3c1b4af9acee64e9f10b9ecb3a327d37",
     "check-prereqs.sh": "4bf9f639afe7c4a6022a16b2ddfd823c19a36e19",
     "LICENSE": "824f91dd5e9b2a0921e3dece8c2b16a3a1794bb2",
     "session-transcript.sh": "7ea9637f82356e4ea393000c3a79656dbd21583e",
-    "install.sh": "73714e2ea4686ed66325dd3e27e86d23be570d4f",
+    "install.sh": "67cc6e71ed2bcacd6badfec9f09fde5ede13e15e",
     "STATUS.md": "e32d8453a8e034efadda336c031c2425fabe24fc",
     "INSTALL_AND_CONFIGURE.md": "2ef9cafea6ac6a242dafb22fc0ba6d2125f1a37f",
     "tag-spine.sh": "bd85ba179601e8c694323999c020448bf13ef862",

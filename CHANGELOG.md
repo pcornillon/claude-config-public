@@ -3,6 +3,16 @@
 Each entry is one build of this starter. The rules it ships are shaped by numbered
 decisions upstream; these are the ones that arrived since the previous build.
 
+## 2026-09-06 16:40 UTC — source `2cb5c50`
+
+**1 new decision(s) behind this build:**
+
+- **D47** — The starter's baseline is its last commit, and staleness is reported by `install.sh`
+
+**1 file(s) changed since the previous build**, in:
+
+- the scripts — `install.sh`
+
 ## 2026-09-06 16:28 UTC — source `a1415c9`
 
 No new decisions behind this build.
