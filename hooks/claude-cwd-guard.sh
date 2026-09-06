@@ -10,7 +10,7 @@
 # 2026-08-03 a session was started from $HOME, ran for six hours across ELEVEN
 # directories (claude-config-public, three-way…, example-codification, example-abstract,
 # example-registry, …), and filed all 21 of its prompts under
-#   ~/.claude/projects/-Users-petercornillon/
+#   ~/.claude/projects/<the slug for $HOME>/
 # Looking in claude-config-public's own project folder that day showed a jump from 10:15 to
 # 15:26 with nothing between, and the morning's work — including the prompt that
 # proposed the whole spine change — looked lost. It was not lost; it was filed under
@@ -95,7 +95,7 @@ root = git_root(cwd)
 if cwd == home:
     msg = ("Started in your HOME directory, not a repository. " + WHY + " On "
            "2026-08-03 this scattered six hours of claude-config-public work under "
-           "~/.claude/projects/-Users-petercornillon/ and it took a search across "
+           "the project folder belonging to $HOME, and it took a search across "
            "every project folder to find it again. If this session is meant to work "
            "on a project, exit and restart inside that repo.")
     level = "warn"

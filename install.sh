@@ -135,6 +135,38 @@ if command -v jq >/dev/null 2>&1; then
     [ "$missing" -eq 0 ] && grn "OK   every hook script in settings.json exists" || exit 1
 fi
 
+# ---------------------------------------------------------------------------
+# Guard 3: a hook whose source of truth is another repo must match it (D46).
+#
+# `hooks/claude-dashboard-state.sh` is OWNED by claude-switchboard and only
+# COPIED here. It has to live under hooks/ because that is the path
+# settings.json names, the path this script validates, and the path the public
+# starter's install.sh repoints — a hook command without a /hooks/ segment is
+# skipped there and silently points at a repo the user does not have.
+#
+# So the copy is unavoidable and the drift is what has to be caught. Advisory,
+# never fatal, and skipped entirely when the owning repo is not on this machine,
+# which is the normal case for anyone not also running claude-switchboard.
+# ---------------------------------------------------------------------------
+drift=0
+check_owned_hook() {           # <hook filename> <owning checkout> <path within it>
+    local name="$1" owner="$2" rel="$3"
+    local mine="$REPO/hooks/$name" theirs="$owner/$rel"
+    [ -f "$mine" ] && [ -f "$theirs" ] || return 0     # owner absent: nothing to say
+    if cmp -s "$mine" "$theirs"; then
+        grn "OK   hooks/$name matches $(basename "$owner")"
+    else
+        drift=1
+        ylw "WARN hooks/$name differs from its source of truth,"
+        ylw "     $theirs"
+        ylw "     If that repo is right:  cp \"$theirs\" \"$mine\""
+        ylw "     If the change was made HERE, move it there first — this copy is"
+        ylw "     generated, and the next sync would discard it."
+    fi
+}
+check_owned_hook claude-dashboard-state.sh \
+    "$HOME/Git_Repos/claude-switchboard" claude-dashboard-state.sh
+
 mkdir -p "$CLAUDE_DIR" 2>/dev/null
 
 # ---------------------------------------------------------------------------

@@ -3,6 +3,28 @@
 Each entry is one build of this starter. The rules it ships are shaped by numbered
 decisions upstream; these are the ones that arrived since the previous build.
 
+## 2026-09-06 16:28 UTC — source `a1415c9`
+
+No new decisions behind this build.
+
+**1 file(s) changed since the previous build**, in:
+
+- the hooks — `hooks/claude-cwd-guard.sh`
+- the scripts — `hooks/claude-cwd-guard.sh`
+
+## 2026-09-06 16:27 UTC — source `03edff6`
+
+**2 new decision(s) behind this build:**
+
+- **D45** — A build product's `SESSIONS/` is never the log's home
+- **D46** — `claude-switchboard` owns `claude-dashboard-state.sh`; this repo carries a checked copy
+
+**4 file(s) changed since the previous build**, in:
+
+- the hooks — `hooks/claude-dashboard-state.sh`
+- `settings.json` — `global/settings.json`
+- the scripts — `hooks/claude-dashboard-state.sh`, `install.sh`, `session-transcript.sh`
+
 ## 2026-08-19 05:16 UTC — source `f5984de`
 
 No new decisions behind this build.

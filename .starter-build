@@ -1,6 +1,6 @@
 {
-  "source_commit": "f5984de",
-  "built": "2026-08-19 05:16 UTC",
+  "source_commit": "a1415c9",
+  "built": "2026-09-06 16:28 UTC",
   "decisions": [
     "D1",
     "D2",
@@ -45,14 +45,16 @@
     "D41",
     "D42",
     "D43",
-    "D44"
+    "D44",
+    "D45",
+    "D46"
   ],
   "files": {
     "prompt-index.sh": "06a4ffca3c1b4af9acee64e9f10b9ecb3a327d37",
     "check-prereqs.sh": "4bf9f639afe7c4a6022a16b2ddfd823c19a36e19",
     "LICENSE": "824f91dd5e9b2a0921e3dece8c2b16a3a1794bb2",
-    "session-transcript.sh": "a295c81e4695640aa0f7700346a3288e7f657303",
-    "install.sh": "847e03772099c4ecc771da2a28e851cd5da25058",
+    "session-transcript.sh": "7ea9637f82356e4ea393000c3a79656dbd21583e",
+    "install.sh": "73714e2ea4686ed66325dd3e27e86d23be570d4f",
     "STATUS.md": "e32d8453a8e034efadda336c031c2425fabe24fc",
     "INSTALL_AND_CONFIGURE.md": "2ef9cafea6ac6a242dafb22fc0ba6d2125f1a37f",
     "tag-spine.sh": "bd85ba179601e8c694323999c020448bf13ef862",
@@ -69,11 +71,11 @@
     "hooks/claude-usage-log.sh": "f54e70e497f058285de4293f9cdecb9bdb485951",
     "hooks/claude-log-debt.sh": "a2c22c6f3936ee31b353293fb9529d98a3601103",
     "hooks/claude-handoff-guard.sh": "b74d3d0011f513a032870b8702f09097a85eead3",
-    "hooks/claude-dashboard-state.sh": "cbfd4210b412341364199560f7f644c4430b131f",
+    "hooks/claude-dashboard-state.sh": "216271e1849067fb2feebc08cf54c570f4dfa0b6",
     "hooks/claude-log-guard.sh": "1869b79fcd34067868227ce96aea1b943ff08e21",
-    "hooks/claude-cwd-guard.sh": "1d6d24d6162aee4cbd92523dabda1bfa276d651e",
+    "hooks/claude-cwd-guard.sh": "580de9f4bf371df860e505493a87a5e35adb96f9",
     "hooks/claude-prose-log.sh": "f3e43f12a23d2ea80ce2c94d3aa43047003b20bd",
-    "global/settings.json": "4d92515b2eaf37845bfef4507b82fa111f8bb837",
+    "global/settings.json": "a1b437805129dac4ecd4c01146acfe703103e40d",
     "global/CLAUDE.md": "49e879c4dfa18728457cdaf0d0c1df39d1c3d82e",
     "global/templates/project/STATUS.md": "39413bd6e76c9f36ec7067cda061063f465ba355",
     "global/templates/project/README.md": "71902fdc6cb50c56417bcaf93912a867d1ed570b",

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# claude-dashboard-state.sh — records this session's state for Desktop Dashboard.
+# claude-dashboard-state.sh — records this session's state for Claude Switchboard.
 #
 # Usage (from ~/.claude/settings.json hooks):  claude-dashboard-state.sh <state>
 #   idle      SessionStart     — a session exists here and has not been asked anything
@@ -255,12 +255,21 @@ mkdir -p "$dir" 2>/dev/null || exit 0
 # Append-only trace of every invocation, capped. Set DASHBOARD_HOOK_TRACE=0 to
 # disable. Exists because hook writes failing silently is otherwise invisible:
 # the hook still exits 0 and nothing is logged anywhere.
+#
+# ONLY TRANSITIONS ARE TRACED (D95). Since `working` is registered on PostToolUse
+# it fires on every tool call, and tracing those would push 300 lines of
+# `working -> working` over the transitions in a couple of minutes. The trace is
+# not a volume record; it is how a state machine that is wrong gets caught, and
+# it is what proved D95's own bug — thirteen `waiting -> done` pairs with no
+# `working` between them, one of them 15 minutes long.
 if [ "${DASHBOARD_HOOK_TRACE:-1}" = "1" ]; then
-  {
-    prev_dbg="$(json_get state < "$dir/$sid.json" 2>/dev/null || true)"
-    [ -n "$prev_dbg" ] || prev_dbg=none
-    printf '%s  event=%-8s prev=%-8s sid=%s\n' "$(date +%H:%M:%S)" "$state" "$prev_dbg" "${sid:0:8}"
-  } >> "$dir/trace.log" 2>/dev/null || true
+  prev_dbg="$(json_get state 2>/dev/null < "$dir/$sid.json" || true)"
+  [ -n "$prev_dbg" ] || prev_dbg=none
+  if [ "$prev_dbg" != "$state" ]; then
+    printf '%s  event=%-8s prev=%-8s sid=%s\n' \
+      "$(date +%H:%M:%S)" "$state" "$prev_dbg" "${sid:0:8}" \
+      >> "$dir/trace.log" 2>/dev/null || true
+  fi
   # keep the last 300 lines
   if [ -f "$dir/trace.log" ]; then
     tail -n 300 "$dir/trace.log" > "$dir/trace.log.tmp" 2>/dev/null && \
@@ -273,12 +282,17 @@ fi
 # a minute AFTER a turn ends. Treating that as a question turned every finished
 # session red once you looked away long enough.
 #
+# `2>/dev/null` goes BEFORE the input redirect, not after: bash applies
+# redirections left to right, so the other order prints "No such file or
+# directory" on a session's first `waiting`, when no state file exists yet.
+# A hook must never write to stderr.
+#
 # Distinguish by ordering rather than by message text, which is not a stable
 # contract. A real question or permission prompt can only happen mid-turn,
 # between UserPromptSubmit and Stop — so the last state recorded is "working".
 # A nudge can only happen after Stop, when the last state is "done".
 if [ "$state" = "waiting" ]; then
-  prev="$(json_get state < "$dir/$sid.json" 2>/dev/null || true)"
+  prev="$(json_get state 2>/dev/null < "$dir/$sid.json" || true)"
   if [ "$prev" = "done" ]; then
     exit 0
   fi

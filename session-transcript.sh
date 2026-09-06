@@ -215,7 +215,12 @@ for i, m in enumerate(heads):
                                      % (log, n, len(tail)))
                     keep = (tail + "\n\n" + keep).strip() if keep else tail
     else:                                    # pre-D38: the whole entry is the curated note
-        keep = seg
+        # A hand-written skeleton often already carries its own `### Notes` heading, and
+        # the writer below adds one unconditionally — so keeping this one emits the
+        # heading twice, and the duplicate then survives every later rebuild because the
+        # D38 branch treats it as part of the note. Strip a leading one only; a deeper
+        # `### Notes` is the note's own text.
+        keep = re.sub(r"\A\s*### +Notes *$\n", "", seg, count=1, flags=re.M)
     if keep.strip():
         notes[n] = keep.strip()
 

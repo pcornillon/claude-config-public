@@ -1,5 +1,4 @@
 {
-  "tui": "fullscreen",
   "permissions": {
     "allow": [
       "Read",
@@ -78,8 +77,18 @@
           {
             "type": "command",
             "command": "bash \"$HOME/Git_Repos/claude-config-public/hooks/claude-handoff-guard.sh\"",
-            "timeout": 10,
-            "if": "Bash(git push *)"
+            "if": "Bash(git push *)",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/Git_Repos/claude-config-public/hooks/claude-dashboard-state.sh\" working",
+            "timeout": 10
           }
         ]
       }
@@ -122,5 +131,8 @@
         ]
       }
     ]
-  }
+  },
+  "tui": "fullscreen",
+  "agentPushNotifEnabled": true,
+  "inputNeededNotifEnabled": true
 }
