@@ -3,6 +3,19 @@
 Each entry is one build of this starter. The rules it ships are shaped by numbered
 decisions upstream; these are the ones that arrived since the previous build.
 
+## 2026-09-08 21:20 UTC — source `9837149`
+
+**1 new decision(s) behind this build:**
+
+- **D57** — Name the thing; never point at it
+
+**3 file(s) changed since the previous build**, in:
+
+- **the working rules** — `global/CLAUDE.md`, the file you are invited to rewrite. A pull conflicts here if you have
+- the slash commands — `global/commands/new-project.md`
+- the project template — `global/templates/project/LOG.md`
+- documentation — `global/commands/new-project.md`, `global/templates/project/LOG.md`
+
 ## 2026-09-08 20:37 UTC — source `3ef46fe`
 
 **1 new decision(s) behind this build:**

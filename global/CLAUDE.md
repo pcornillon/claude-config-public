@@ -34,6 +34,17 @@ instruction could be read either way, it names its subject explicitly.
   another project. That he needs, because it may have consequences he has to go and
   look for. The test is not "was it interesting to fix" but **"does he have to do
   something about it?"**
+- **Name the thing; never point at it.** No bare "that session", "this repo", "the
+  other one", "it" — {{OWNER}} often has several sessions open across thirteen repos, and a
+  demonstrative that is obvious while you are writing has several possible referents by
+  the time he reads it. **Sessions** are named by the first eight characters of the id,
+  the repo, and the start time — *"session `86f160d6` in `claude-switchboard`, started
+  22:14 CEST"* — because two sessions in the same repo on the same day are otherwise
+  indistinguishable. **Repos** are named, always, even when only one has been discussed
+  for several paragraphs. **Tasks and decisions** carry their number *and* their repo:
+  `claude-config-public` #31, not "the roll-out task". Repeating a long name is cheaper than a
+  wrong guess, and cheaper still than the question that follows it.
+
 - **Distinguish what you verified from what you assumed.** If you read a number out of
   a file, say so; if you are recalling it, say that instead. "I checked" and "I think"
   are different claims and I will act on them differently.

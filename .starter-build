@@ -1,6 +1,6 @@
 {
-  "source_commit": "3ef46fe",
-  "built": "2026-09-08 20:37 UTC",
+  "source_commit": "9837149",
+  "built": "2026-09-08 21:20 UTC",
   "decisions": [
     "D1",
     "D2",
@@ -57,7 +57,8 @@
     "D53",
     "D54",
     "D55",
-    "D56"
+    "D56",
+    "D57"
   ],
   "files": {
     "prompt-index.sh": "06a4ffca3c1b4af9acee64e9f10b9ecb3a327d37",
@@ -89,15 +90,15 @@
     "hooks/claude-cwd-guard.sh": "580de9f4bf371df860e505493a87a5e35adb96f9",
     "hooks/claude-prose-log.sh": "f3e43f12a23d2ea80ce2c94d3aa43047003b20bd",
     "global/settings.json": "6e8bd1c6b532ae3c3990afee99a768dad2e79e10",
-    "global/CLAUDE.md": "c89c3d558b644822ab1d633147abcbf626c9d350",
+    "global/CLAUDE.md": "e2ac543263a2ac3f8ec2373f2e19ccc8c644e6d3",
     "global/templates/project/STATUS.md": "39413bd6e76c9f36ec7067cda061063f465ba355",
     "global/templates/project/README.md": "71902fdc6cb50c56417bcaf93912a867d1ed570b",
     "global/templates/project/TASKS.md": "c8288f1fe72bb73d9f485284034a102974549619",
-    "global/templates/project/LOG.md": "9b4434f30f1fc4a154e804db7b987556cad1a4f8",
+    "global/templates/project/LOG.md": "038057d5dc7c9ea9a4fddc62dd8abdf1dbb9cc59",
     "global/templates/project/CLAUDE.md": "298253f60ed5d5618f1501b3b21b97658f1090bf",
     "global/templates/project/DECISIONS.md": "35a4016a78cfe7ed943b042b8033997a39d95563",
     "global/commands/last.md": "dc516c392cfcd9472fe08b114d7e451c5947d1bb",
-    "global/commands/new-project.md": "db67ce755fab766d4e16706a30e54a544e1ac16e",
+    "global/commands/new-project.md": "69b5ec3f4df694855a5addf5b80055b1ccc315b0",
     "global/commands/audit-project.md": "d7cac5a20fc8a6ecac869b5d10b0b3ca737cb506",
     "global/skills/markdown-tables/SKILL.md": "8e762b818ad592282dadf147ee0155b04b7f9766"
   }

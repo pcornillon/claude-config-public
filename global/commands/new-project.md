@@ -38,8 +38,15 @@ this resolves wherever it was cloned. The template is
    and substitute: `{{PROJECT}}`, `{{WHAT}}`, `{{BIG_IDEA}}`, `{{LAYOUT}}`,
    `{{CONVENTIONS}}`, `{{GUARDRAILS}}`, `{{ONE_LINE}}`, `{{FIRST_TASK}}`,
    `{{WHAT_ONE_LINE}}`, `{{PRODUCES}}`, `{{STATE}}`,
-   `{{FIRST_DECISION}}`, `{{DATE}}`. Get `{{DATE}}` from
-   `date '+%Y-%m-%d %H:%M %Z'` — never invent it.
+   `{{FIRST_DECISION}}`, `{{DATE}}`, `{{SESSION_KEY}}`, `{{SESSION_LOG}}`. Get
+   `{{DATE}}` from `date '+%Y-%m-%d %H:%M %Z'` — never invent it.
+
+   `{{SESSION_LOG}}` is the **filename only** of the session log you opened for this
+   session — `2026-09-08_1019_CEST_your-laptop.md` — and `{{SESSION_KEY}}` is its
+   `<HHMM>_<host>`, here `1019_your-laptop`. Together they make `LOG.md`'s first
+   row a working link (D55). Both come from the log you actually opened; do not
+   construct them from today's date, because a session that spans midnight would then
+   name a file that does not exist.
 
 4. **Strip the `<!-- CONTRACT: … -->` comment** from the top of each file only if the
    user asks. It is there to stop a future session repurposing `STATUS.md`, and it
