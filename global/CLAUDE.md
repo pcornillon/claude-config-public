@@ -26,6 +26,14 @@ instruction could be read either way, it names its subject explicitly.
 - **Say what you did *not* do, and why.** Work you held, scope you skipped, a road you
   chose not to take. Silence reads as "handled," so an unmentioned omission is a
   wrong answer that looks like a right one.
+- **Don't report bugs you found and fixed in your own work.** Drafting something,
+  testing it, finding it wrong and fixing it is *how the work is done*, not news about
+  it. Report the finished thing. The exception is the case that actually costs {{OWNER}}
+  something: a bug in **shipped** code — anything already deployed to `~/.claude/`, or
+  in a repo built on this standard — that may have damaged a file, an existing log, or
+  another project. That he needs, because it may have consequences he has to go and
+  look for. The test is not "was it interesting to fix" but **"does he have to do
+  something about it?"**
 - **Distinguish what you verified from what you assumed.** If you read a number out of
   a file, say so; if you are recalling it, say that instead. "I checked" and "I think"
   are different claims and I will act on them differently.
@@ -407,6 +415,19 @@ it just gets no `### Notes`.
 
 `LOG.md` gets a line for the same prompt, at the same moment — it is an index of the
 session log, so it is as complete as the session log is.
+
+**A background-notification turn is not a `P##`.** When a long job outlives the turn
+that started it, the harness wakes the session when it exits and Claude produces a full
+turn of work with no prompt above it. Those get
+`## ⚙ Background event · <timestamp> · <title>` in the session log and a `⚙` in place of
+the `P##` in `LOG.md`. `P##` stays strictly one per prompt, and the D29 prompt index
+marks the notification turns explicitly.
+
+This is not hypothetical: in `example-dataset` on 2026-09-08 five such turns occurred during a
+26-hour run, one was logged as `## P7` — attributing to me something I never said — and
+two of my actual prompts went unrecorded in the same pass. I found it by scrolling back
+and seeing responses with no prompts against them. A log that invents a prompt is
+worse than one that omits work, because it corrupts the record of what was asked.
 
 The other three files have their own tests; a prompt reaches one only when its test
 is met:

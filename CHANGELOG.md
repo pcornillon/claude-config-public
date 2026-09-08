@@ -3,6 +3,27 @@
 Each entry is one build of this starter. The rules it ships are shaped by numbered
 decisions upstream; these are the ones that arrived since the previous build.
 
+## 2026-09-08 19:32 UTC — source `72112b5`
+
+**7 new decision(s) behind this build:**
+
+- **D48** — Render a session log's timestamps in the zone named by its own filename
+- **D49** — An image-only prompt is a prompt
+- **D50** — Report the finished thing, not the bugs met while making it
+- **D51** — A background-notification turn is not a `P##`
+- **D52** — A freshness check must fetch, or it must stay silent
+- **D53** — A background event is an entry in its own right, not part of the entry above it
+- **D54** — A repeated `D##` blocks the commit
+
+**6 file(s) changed since the previous build**, in:
+
+- **the working rules** — `global/CLAUDE.md`, the file you are invited to rewrite. A pull conflicts here if you have
+- the slash commands — `global/commands/last.md`
+- the hooks — `hooks/claude-decision-number-guard.sh`, `hooks/claude-repo-freshness.sh`
+- `settings.json` — `global/settings.json`
+- the scripts — `hooks/claude-decision-number-guard.sh`, `hooks/claude-repo-freshness.sh`, `session-transcript.sh`
+- documentation — `global/commands/last.md`
+
 ## 2026-09-06 16:40 UTC — source `2cb5c50`
 
 **1 new decision(s) behind this build:**
