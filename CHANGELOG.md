@@ -3,6 +3,19 @@
 Each entry is one build of this starter. The rules it ships are shaped by numbered
 decisions upstream; these are the ones that arrived since the previous build.
 
+## 2026-09-08 20:37 UTC — source `3ef46fe`
+
+**1 new decision(s) behind this build:**
+
+- **D56** — A `LOG.md` key whose log is elsewhere gets a pointer, not a moved row
+
+**4 file(s) changed since the previous build**, in:
+
+- **the working rules** — `global/CLAUDE.md`, the file you are invited to rewrite. A pull conflicts here if you have
+- the slash commands — `global/commands/audit-project.md`
+- the scripts — `foreign-keys.sh`
+- documentation — `CLAUDE.md`, `global/commands/audit-project.md`
+
 ## 2026-09-08 19:46 UTC — source `e435090`
 
 **1 new decision(s) behind this build:**

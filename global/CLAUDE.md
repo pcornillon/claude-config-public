@@ -317,6 +317,14 @@ top to bottom to see **what has been done** without opening anything else.
   **Leave a key unlinked when nothing resolves it**, which is the honest state for a
   session logged in another repo (D34) or never logged at all. An unlinked key then
   reads as "no log here", which is information.
+
+  **And say where it is instead** (D56). Each `LOG.md` with such keys carries a
+  regenerated "Session logs held elsewhere" block, between
+  `<!-- FOREIGN-KEYS:BEGIN/END -->` markers, naming the repo and file holding each one.
+  Run `claude-config-public/foreign-keys.sh <repo>` to write or refresh it; it rewrites only
+  what is between the markers. **Never move the row to the other repo instead** — both
+  files are append-only and chronological, so the row breaks one contract or the other
+  at the destination, and its `P##` then reads as that repo's session.
 - **Append-only, chronological.** A `## <theme>` heading appears when the topic
   shifts; entries append under the current one. True thematic sections would read
   better but need insertion into old sections, which breaks append-only and therefore

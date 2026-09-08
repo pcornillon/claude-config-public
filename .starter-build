@@ -1,6 +1,6 @@
 {
-  "source_commit": "e435090",
-  "built": "2026-09-08 19:46 UTC",
+  "source_commit": "3ef46fe",
+  "built": "2026-09-08 20:37 UTC",
   "decisions": [
     "D1",
     "D2",
@@ -56,12 +56,14 @@
     "D52",
     "D53",
     "D54",
-    "D55"
+    "D55",
+    "D56"
   ],
   "files": {
     "prompt-index.sh": "06a4ffca3c1b4af9acee64e9f10b9ecb3a327d37",
     "check-prereqs.sh": "4bf9f639afe7c4a6022a16b2ddfd823c19a36e19",
     "LICENSE": "824f91dd5e9b2a0921e3dece8c2b16a3a1794bb2",
+    "foreign-keys.sh": "3560efca4cad60ca852b64f35bd9d20425b433d7",
     "session-transcript.sh": "fb293b9cf7934a160bffc2f5a030aae9e698c338",
     "install.sh": "67cc6e71ed2bcacd6badfec9f09fde5ede13e15e",
     "STATUS.md": "e32d8453a8e034efadda336c031c2425fabe24fc",
@@ -70,7 +72,7 @@
     "README.md": "e9aec78d7df1864f39ab32e09fe8cc88ae71f67d",
     "TASKS.md": "c3335281bba6e1d9e18cabd3e01c1c295de60b46",
     "LOG.md": "fdee14abfe16e841ae837fdf4c660759f8d2c525",
-    "CLAUDE.md": "4880323a12bea9eb49e4efab7e2c6a707b8a674a",
+    "CLAUDE.md": "676d4015199f47c74a7d4e61214964ebf0988d51",
     "DECISIONS.md": "a427e89687ef3eda2a89921fdd034398b97ab240",
     "LATEX/.gitkeep": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
     "ISSUE_ANALYSES/.gitkeep": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
@@ -87,7 +89,7 @@
     "hooks/claude-cwd-guard.sh": "580de9f4bf371df860e505493a87a5e35adb96f9",
     "hooks/claude-prose-log.sh": "f3e43f12a23d2ea80ce2c94d3aa43047003b20bd",
     "global/settings.json": "6e8bd1c6b532ae3c3990afee99a768dad2e79e10",
-    "global/CLAUDE.md": "2f390c1ac8e2cc078fc4278c6789b30c4ad40a97",
+    "global/CLAUDE.md": "c89c3d558b644822ab1d633147abcbf626c9d350",
     "global/templates/project/STATUS.md": "39413bd6e76c9f36ec7067cda061063f465ba355",
     "global/templates/project/README.md": "71902fdc6cb50c56417bcaf93912a867d1ed570b",
     "global/templates/project/TASKS.md": "c8288f1fe72bb73d9f485284034a102974549619",
@@ -96,7 +98,7 @@
     "global/templates/project/DECISIONS.md": "35a4016a78cfe7ed943b042b8033997a39d95563",
     "global/commands/last.md": "dc516c392cfcd9472fe08b114d7e451c5947d1bb",
     "global/commands/new-project.md": "db67ce755fab766d4e16706a30e54a544e1ac16e",
-    "global/commands/audit-project.md": "8e71a4d19229697018c2d4da15ae327b65e40730",
+    "global/commands/audit-project.md": "d7cac5a20fc8a6ecac869b5d10b0b3ca737cb506",
     "global/skills/markdown-tables/SKILL.md": "8e762b818ad592282dadf147ee0155b04b7f9766"
   }
 }

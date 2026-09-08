@@ -33,6 +33,10 @@ out of scope.
   bare keys that do resolve, and links whose target does not exist. Check by globbing
   on the key, `SESSIONS/*_<HHMM>_*_<host>.md`, never by rebuilding the filename from
   the row's date — the key is the session's start and the date is the prompt's.
+- If any key resolves nowhere locally, `LOG.md` should carry the "Session logs held
+  elsewhere" block (D56) naming the repo that holds each. Missing or stale: run
+  `claude-config-public/foreign-keys.sh <repo>`. Flag a **moved** row instead — a row whose
+  `P##` and date do not fit any of this repo's own sessions is drift, not a fix.
 - `STATUS.md` ends with `## Active thread` (or one per lane). Flag if absent — that
   is the section a cold session resumes from.
 - `STATUS.md` is not a session-by-session history. Flag a long run of dated entries.
