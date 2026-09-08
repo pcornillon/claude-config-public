@@ -27,6 +27,12 @@ out of scope.
   backticked for the same reason (D37). Mathematical notation is exempt.
 
 **Contracts held**
+- Every `LOG.md` session key is a **link** to its session log (D55) — a bare
+  `` `<HHMM>_<host>` `` code span is drift, *unless* no log in this repo resolves it,
+  which is the intended way to say "logged elsewhere (D34), or not logged". Report
+  bare keys that do resolve, and links whose target does not exist. Check by globbing
+  on the key, `SESSIONS/*_<HHMM>_*_<host>.md`, never by rebuilding the filename from
+  the row's date — the key is the session's start and the date is the prompt's.
 - `STATUS.md` ends with `## Active thread` (or one per lane). Flag if absent — that
   is the section a cold session resumes from.
 - `STATUS.md` is not a session-by-session history. Flag a long run of dated entries.

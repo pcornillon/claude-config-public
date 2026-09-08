@@ -282,11 +282,11 @@ top to bottom to see **what has been done** without opening anything else.
 ```
 ## Orbit-position dependence
 
-- ★ **P1** `1615_your-desktop` · 2026-07-23 16:15 EDT · Task #8 — Figure 3, std by orbit position
+- ★ **P1** [`1615_your-desktop`](SESSIONS/2026-07-23_1615_EDT_your-desktop.md) · 2026-07-23 16:15 EDT · Task #8 — Figure 3, std by orbit position
   → `matchup_orbit_position_map.m`; #8 `doing`
-- **P2** `1615_your-desktop` · 2026-07-23 17:02 EDT · colour-range control for Figs 1 & 3
+- **P2** [`1615_your-desktop`](SESSIONS/2026-07-23_1615_EDT_your-desktop.md) · 2026-07-23 17:02 EDT · colour-range control for Figs 1 & 3
   → `set_map_range`; #8 still `doing`
-- ★ **P3** `1615_your-desktop` · 2026-07-23 17:20 EDT · Task #9 — annual + seasonal generators
+- ★ **P3** [`1615_your-desktop`](SESSIONS/2026-07-23_1615_EDT_your-desktop.md) · 2026-07-23 17:20 EDT · Task #9 — annual + seasonal generators
   → three decisions; D18–D20
 ```
 
@@ -296,10 +296,27 @@ top to bottom to see **what has been done** without opening anything else.
   list syntax and will be eaten.
 - **`★` marks a substantive entry** so a scan can skip the rest. It is deliberately
   not a markdown metacharacter.
-- **Every entry carries a session key** — `` `<HHMM>_<host>` ``, the start time and
-  host of the session log it came from (D20). `P##` alone is session-scoped, so in a
-  project-level file it collides the moment two sessions append. The date is already
-  on the line, so the key omits it.
+- **Every entry carries a session key, and the key is a link** —
+  `` [`<HHMM>_<host>`](SESSIONS/<the log>) ``, the start time and host of the session
+  log it came from (D20, D55). `P##` alone is session-scoped, so in a project-level
+  file it collides the moment two sessions append. The date is already on the line, so
+  the key omits it.
+
+  **Never try to reconstruct the filename from the row** — the key is the session's
+  *start* and the row carries the *prompt's* date, so a same-day guess is wrong
+  whenever a session spans days, by up to five days and a zone in this repo. The glob
+  that works ignores the date entirely: `ls SESSIONS/*_1745_*_your-laptop.md`.
+  Writing the link at the moment the row is written costs nothing and spares the
+  lookup for ever.
+
+  **The link lands at the top of the log, not at the prompt.** MacDown honours a
+  `#fragment` only within the document already displayed — measured 2026-09-07, three
+  ways — so an anchor buys nothing there and none is emitted. Search for the `## P##`
+  once the log is open.
+
+  **Leave a key unlinked when nothing resolves it**, which is the honest state for a
+  session logged in another repo (D34) or never logged at all. An unlinked key then
+  reads as "no log here", which is information.
 - **Append-only, chronological.** A `## <theme>` heading appears when the topic
   shifts; entries append under the current one. True thematic sections would read
   better but need insertion into old sections, which breaks append-only and therefore

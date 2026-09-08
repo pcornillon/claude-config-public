@@ -3,6 +3,18 @@
 Each entry is one build of this starter. The rules it ships are shaped by numbered
 decisions upstream; these are the ones that arrived since the previous build.
 
+## 2026-09-08 19:46 UTC — source `e435090`
+
+**1 new decision(s) behind this build:**
+
+- **D55** — A `LOG.md` session key is a link to its session log
+
+**2 file(s) changed since the previous build**, in:
+
+- **the working rules** — `global/CLAUDE.md`, the file you are invited to rewrite. A pull conflicts here if you have
+- the slash commands — `global/commands/audit-project.md`
+- documentation — `global/commands/audit-project.md`
+
 ## 2026-09-08 19:32 UTC — source `72112b5`
 
 **7 new decision(s) behind this build:**
