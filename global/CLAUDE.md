@@ -71,12 +71,38 @@ instruction could be read either way, it names its subject explicitly.
   me. `DECISIONS` keeps the record complete and visible while spending my attention only
   where it changes an outcome. **I can still object to anything in it**, and a `DECISIONS`
   entry is written to be objected to: state the call, and state what it rules out.
+- **Not an ask — decide it and record it in `DECISIONS`** (D58). Measured over 83 asks
+  in four repos (`claude-config-public` Task #40, 2026-09-30): about 32 got a bare "yes" and
+  about 8 got "I don't understand". The kinds:
+  - **The next step of a plan I have already agreed to**, when it is local and can be
+    undone: run the test, write the script, fix the bug, draft the table.
+  - **Your own recommendation**, when you would carry it out anyway and it can be
+    undone. If you would write "I recommend X", do X and record it.
+  - **Log and spine housekeeping**: backfilling, rebuilding a log, which repo holds it,
+    refreshing `STATUS.md`, striking a stale row. When in doubt, keep more information,
+    not less. I often cannot tell what the problem with a log is, so asking me passes
+    the decision to the person least able to make it.
+  - **Whether you read me correctly**, when the reading is the obvious one. State the
+    reading in `DECISIONS` and proceed.
+  - **A choice between internal mechanisms I cannot evaluate.** Decide from the outcome
+    I asked for. If you truly cannot, explain the consequence in my terms, not the
+    mechanism.
+  - **Committing and pushing** — see Session protocol (D59).
+- **Check before you act.** A decision taken without asking is only as good as its
+  premise. Before acting, check the premise against the files themselves, not against a
+  hook's warning, a summary, or an earlier session's claim. Say in the `DECISIONS` entry
+  what you checked. (2026-09-30: a hook reported "18 unlogged" prompts. The log was a
+  deliberate D34 stub, and backfilling it would have copied a transcript into the wrong
+  repo.)
+- **Still asks:** anything hard to undo or that reaches other people (deleting,
+  publishing, rewriting history, editing `global/CLAUDE.md` or `settings.json`);
+  anything that changes the science or a manuscript's claims; and anything only I know.
 - **`FOLLOW-ON:` is for what comes next, not for a question.** If you are telling me
   what you will do after I answer, mark it that way. An `ASK #n:` I cannot act on
   until some earlier step is done is not an ask — it dilutes the ones that are.
-- **A response has three parts, and the seams between them must be unmissable.** {{OWNER}}
-  reads them at three different speeds: he skips the first, skims the second, and reads
-  the third closely, going back into the second only where an ask sends him. That only
+- **A response has four parts, and the seams between them must be unmissable.** {{OWNER}}
+  reads them at different speeds: he skips the first, skims the second, reads the third
+  closely, and consults the fourth only when a term in the second stopped him. That only
   works if he can find the boundaries without reading to locate them.
 
   1. **Working narration** — the sentences between tool calls, written while the work is
@@ -86,6 +112,21 @@ instruction could be read either way, it names its subject explicitly.
   2. **`## Findings`** — a level-2 heading with exactly that word, marking the start of
      the report. Everything learned goes here and **only** here.
   3. **`## DECISIONS`** and then the `ASK #n:` block, as specified above.
+  4. **`## Definitions`** — every term, label or notation the response introduced or
+     leaned on that is not self-evident, each in a sentence or two. It goes **last**,
+     after the asks, because it is a reference to consult rather than prose to read.
+
+  **What belongs in `## Definitions`.** Anything invented for this piece of work — a
+  convention, a shorthand, a name for one of several options being compared ("own clip",
+  "reference clip") — and anything borrowed from the project whose meaning {{OWNER}} may not
+  be holding in his head at that moment. The test is not "did I explain it somewhere
+  earlier"; it is **"could he read the Findings straight through without stopping?"** A
+  term used three paragraphs after it was coined has usually stopped him. Err toward
+  including a term: one he does not need costs a line, one he needs and cannot find
+  costs a round trip.
+
+  A response that introduces nothing new needs no `## Definitions`, the same way a
+  response with no decisions needs no `## DECISIONS`.
 
   **The failure this fixes is repetition, not disorder.** Narrating a result while
   working and then restating it under `## Findings` makes {{OWNER}} read the same sentence
@@ -104,6 +145,15 @@ instruction could be read either way, it names its subject explicitly.
   waiting. So it goes on responses that are one word, responses that end in an
   `ASK #n:`, and responses that report a failure — no exceptions, or I have to start
   guessing again, which is the problem it solves.
+
+  **When a job you started is still running as the turn ends, the marker changes.** End
+  instead with `JOB RUNNING IN BACKGROUND — WILL REPORT WHEN IT FINISHES` on its own
+  line. It is still an end-of-turn marker — the turn is over and nothing follows it — but
+  it says the *work* is not: a result is still coming, and you will be woken to report it.
+  `RESPONSE COMPLETE` on its own had come to read as "the run is done" when only the
+  reply was, which is a different claim (2026-09-26). Exactly one of the two markers ends
+  every response; use the background one only while a job whose result you have promised
+  is actually running, and go back to `RESPONSE COMPLETE` on the turn that reports it.
 
 ## Never fabricate
 
@@ -202,10 +252,32 @@ underscores intact.
 `example-manuscript` renders in MacDown as *three-way SST
 error analysis manuscript* with the underscores eaten and two words italicised, because
 the renderer reads `_SST_` and `_analysis_` as emphasis. Backticks make it literal.
-**The same applies anywhere else a name with an underscore appears in prose** — repo
-names, file names, folder names, config fields, environment variables. Mathematical
-notation is the exception: `sigma_A`, `r_AM` and `V_MB` are science, not code, and are
-left as written.
+**The same applies anywhere else an underscore appears in prose** — repo names, file
+names, folder names, config fields, environment variables, **and mathematical notation**:
+`sigma_A`, `r_AM`, `V_MB` and `sigma_B^2` are backticked too.
+
+**Mathematics used to be exempt, and the exemption was withdrawn on 2026-09-17.** It
+cost more than it saved: it made every token a judgment about whether it was science or
+code, and it left me reading `σ_MODIS` with the underscore swallowed. One rule, no
+judgment.
+
+Two corollaries, or the rule misfires — both learned by getting them wrong:
+
+- **Inside an HTML table cell, backticks do not render.** MacDown does not process
+  markdown inside block-level HTML, so `` `σ_A` `` in a `<td>` shows literal backtick
+  characters. Use `<code>` there, as the `markdown-tables` skill already does for paths.
+- **Inside a fenced code block, add nothing.** A fence renders underscores literally
+  already, so a backtick there would be a visible backtick.
+
+**Equations go in a fenced block, one equation per line.** The fence solves the
+underscores for free, and it fixes a second problem that is invisible in the source:
+consecutive lines of a `>` blockquote **merge into one rendered paragraph**, so a run of
+blockquoted equations comes out as a single run-on line. Three equations on one line —
+`A = T + a  M = T + m  B = T + b` — is the failure this prevents.
+
+**This binds going forward, not retroactively.** Older entries in `DECISIONS.md` and
+`TASKS.md` quote LaTeX labels (`eq:tc_solution`) and model notation (`e_A`, `X_i`) bare;
+leave them unless the surrounding text is being rewritten anyway.
 It applies to `CLAUDE.md`, `STATUS.md`, `LOG.md`, `DECISIONS.md`, `TASKS.md` and
 `PLAN.md`. **`README.md` is the one exception: its title is the repo directory name
 alone** — `# example-manuscript`, no filename, no em dash. It is
@@ -293,11 +365,11 @@ top to bottom to see **what has been done** without opening anything else.
 ```
 ## Orbit-position dependence
 
-- ★ **P1** [`1615_your-desktop`](SESSIONS/2026-07-23_1615_EDT_your-desktop.md) · 2026-07-23 16:15 EDT · Task #8 — Figure 3, std by orbit position
+- ★ **P41 (P1)** [`1615_your-desktop`](SESSIONS/2026-07-23_1615_EDT_your-desktop.md) · 2026-07-23 16:15 EDT · Task #8 — Figure 3, std by orbit position
   → `matchup_orbit_position_map.m`; #8 `doing`
-- **P2** [`1615_your-desktop`](SESSIONS/2026-07-23_1615_EDT_your-desktop.md) · 2026-07-23 17:02 EDT · colour-range control for Figs 1 & 3
+- **P42 (P2)** [`1615_your-desktop`](SESSIONS/2026-07-23_1615_EDT_your-desktop.md) · 2026-07-23 17:02 EDT · colour-range control for Figs 1 & 3
   → `set_map_range`; #8 still `doing`
-- ★ **P3** [`1615_your-desktop`](SESSIONS/2026-07-23_1615_EDT_your-desktop.md) · 2026-07-23 17:20 EDT · Task #9 — annual + seasonal generators
+- ★ **P43 (P3)** [`1615_your-desktop`](SESSIONS/2026-07-23_1615_EDT_your-desktop.md) · 2026-07-23 17:20 EDT · Task #9 — annual + seasonal generators
   → three decisions; D18–D20
 ```
 
@@ -307,6 +379,16 @@ top to bottom to see **what has been done** without opening anything else.
   list syntax and will be eaten.
 - **`★` marks a substantive entry** so a scan can skip the rest. It is deliberately
   not a markdown metacharacter.
+- **Every prompt row carries two numbers: a project-wide running number, then the
+  session's own in parentheses** — `**P27 (P4)**` is the 27th prompt in this `LOG.md`
+  and `## P4` in its session log (D60). The running number is what to cite from
+  outside the session ("`LOG.md` P27"); the parenthesised one is what to search for
+  once the session log is open. **Take the next running number by re-reading
+  `LOG.md` immediately before appending**, as with `D##` — never from memory, or two
+  concurrent sessions take the same one. `claude-config-public/renumber-log.sh --next <repo>`
+  prints it. A `⚙` background row and a `↳ mid-turn` row get no number: neither is a
+  prompt. A row covering several prompts carries a running range,
+  `**P37–P38 (P13–P14)**`.
 - **Every entry carries a session key, and the key is a link** —
   `` [`<HHMM>_<host>`](SESSIONS/<the log>) ``, the start time and host of the session
   log it came from (D20, D55). `P##` alone is session-scoped, so in a project-level
@@ -482,8 +564,15 @@ to be asked separately: refresh `STATUS.md`'s active thread, finalize the sessio
 then **commit and push**, and tell me what you committed. I usually say this without
 exiting Claude.
 
-Same for an explicit "commit and push." *"Just commit"* means commit only. Otherwise
-don't commit unless I ask.
+Same for an explicit "commit and push." *"Just commit"* means commit only.
+
+**Otherwise, commit and push without asking** once a piece of work is finished and
+checked (D59) — only the paths you touched, never `git add -A`, and name in `DECISIONS`
+what you committed and where it went. A commit always goes with a push; an unpushed
+commit strands work on one machine. This replaced "don't commit unless I ask" on
+2026-09-30, after seven of eight commit asks got a bare "yes". Still ask before a force
+push, a history rewrite, or a push whose effect reaches other people (publishing the
+public starter, a shared org repo).
 
 **Machines.** I work across an iMac and a MacBook. Session history is local to a
 machine, so a session cannot be resumed from the other one. **Never resume a session
@@ -618,6 +707,12 @@ word "yes." **If I am ever hand-typing a `Status:` line, the system has failed.*
   ....................
   ```
 - Refer to another repo by its actual directory name, never a nickname.
+- **Never delete files in the session scratchpad.** It is temporary and private to the
+  session, so leftovers cost nothing; leave test copies there and use a fresh subfolder
+  instead of clearing an old one. Every `rm` triggers a permission prompt
+  (`global/settings.json` asks on `Bash(rm *)`), and on 2026-10-12 two such prompts for
+  throwaway test copies cost {{OWNER}} a question each. Deletes inside a repo still go
+  through the prompt — "I created it a minute ago" is the claim it exists to check.
 - Prefer editing an existing file over creating a new one. Do not create
   documentation files unless asked.
 - **In terminal responses, put file, folder and path names in bold, not backticks.**

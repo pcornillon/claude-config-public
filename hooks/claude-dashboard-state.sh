@@ -6,6 +6,8 @@
 #   working   UserPromptSubmit — you sent a prompt, Claude is now busy
 #   waiting   Notification     — Claude wants your attention (permission/question)
 #   done      Stop             — the response finished
+#             (recorded as `background` instead when the turn ended with work
+#             still in flight — see D97 below)
 #   gone      SessionEnd       — session over, drop its file
 #
 # `idle` is the newest of the five and the only one that reports NOTHING happening
@@ -252,6 +254,28 @@ fi
 
 mkdir -p "$dir" 2>/dev/null || exit 0
 
+# A turn can end with work still running — a `run_in_background` shell, a
+# subagent, a monitor — and the session will be woken when it finishes (D97).
+# That is not `done`: nothing is waiting on you, but a result is still coming.
+# Claude Code says so itself, in the Stop payload's `background_tasks` array,
+# which exists precisely to tell "done" from "paused waiting for background work
+# to wake it". Non-empty means in flight. The woken turn ends in its own Stop,
+# with the array empty, and that writes `done`.
+#
+# A bash regex rather than json_get, which reads strings only. The `[^\\]`
+# before the key keeps an escaped `\"background_tasks\"` inside some task's
+# free-text description from matching. An older Claude Code sends no such field,
+# so this never fires there and the state is `done`, as it always was.
+#
+# Done BEFORE the trace, so the trace records `background` rather than the
+# `done` the hook was called with.
+if [ "$state" = "done" ] && [ -n "$payload" ]; then
+  bg_re='(^|[^\\])"background_tasks"[[:space:]]*:[[:space:]]*\[[[:space:]]*[^][:space:]]'
+  if [[ $payload =~ $bg_re ]]; then
+    state="background"
+  fi
+fi
+
 # Append-only trace of every invocation, capped. Set DASHBOARD_HOOK_TRACE=0 to
 # disable. Exists because hook writes failing silently is otherwise invisible:
 # the hook still exits 0 and nothing is logged anywhere.
@@ -293,7 +317,7 @@ fi
 # A nudge can only happen after Stop, when the last state is "done".
 if [ "$state" = "waiting" ]; then
   prev="$(json_get state 2>/dev/null < "$dir/$sid.json" || true)"
-  if [ "$prev" = "done" ]; then
+  if [ "$prev" = "done" ] || [ "$prev" = "background" ]; then
     exit 0
   fi
 fi

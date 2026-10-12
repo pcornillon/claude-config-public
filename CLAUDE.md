@@ -33,6 +33,7 @@ check-prereqs.sh       what this needs, what is missing, and how to get it
 tag-spine.sh           Finder-tags the spine folders (macOS, cosmetic)
 session-transcript.sh  rebuilds a session log as a complete transcript
 foreign-keys.sh        names the repo holding each LOG.md key that resolves elsewhere
+renumber-log.sh        numbers LOG.md prompt rows project-wide; --next prints the next number
 global/                THE PAYLOAD — deploys to ~/.claude/
 hooks/                 hook scripts named by global/settings.json
 ```

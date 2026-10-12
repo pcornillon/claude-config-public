@@ -10,7 +10,8 @@
 
 # LOG.md — `{{PROJECT}}`
 
-One line per prompt, appended live. `★` marks a substantive entry, and the
+One line per prompt, appended live, numbered project-wide with the session's own
+number in parentheses — `P27 (P4)` (D60). `★` marks a substantive entry, and the
 `` `<HHMM>_<host>` `` key **links to** the session log it came from (D20, D55).
 Detail lives in `SESSIONS/`; this file is for scanning.
 
@@ -25,5 +26,5 @@ held elsewhere" block here naming the repo that holds each (D56).
 
 ## Setup
 
-- ★ **P1** [`{{SESSION_KEY}}`](SESSIONS/{{SESSION_LOG}}) · {{DATE}} · scaffold the project
+- ★ **P1 (P1)** [`{{SESSION_KEY}}`](SESSIONS/{{SESSION_LOG}}) · {{DATE}} · scaffold the project
   → spine written

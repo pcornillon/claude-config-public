@@ -3,6 +3,22 @@
 Each entry is one build of this starter. The rules it ships are shaped by numbered
 decisions upstream; these are the ones that arrived since the previous build.
 
+## 2026-10-12 19:34 UTC — source `dfda027`
+
+**3 new decision(s) behind this build:**
+
+- **D58** — Decide the low-stakes kinds of ask; check the premise before acting
+- **D59** — Commit and push without asking
+- **D60** — Number LOG.md rows project-wide, with the session's number in parentheses
+
+**5 file(s) changed since the previous build**, in:
+
+- **the working rules** — `global/CLAUDE.md`, the file you are invited to rewrite. A pull conflicts here if you have
+- the project template — `global/templates/project/LOG.md`
+- the hooks — `hooks/claude-dashboard-state.sh`
+- the scripts — `hooks/claude-dashboard-state.sh`, `renumber-log.sh`
+- documentation — `CLAUDE.md`, `global/templates/project/LOG.md`
+
 ## 2026-09-08 21:20 UTC — source `9837149`
 
 **1 new decision(s) behind this build:**
