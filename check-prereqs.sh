@@ -49,7 +49,9 @@ if [ "$WANT" = all ] || [ "$WANT" = core ]; then
 
   have claude && c=1 || { c=0; missing_core=1; }
   report $c "claude (Claude Code)" "the thing this configuration configures" \
-    "https://claude.com/claude-code" "npm install -g @anthropic-ai/claude-code"
+    "https://code.claude.com/docs/en/setup" "curl -fsSL https://claude.ai/install.sh | bash"
+  [ "$c" = 0 ] && note "account: a paid Claude plan (Pro, Max, Team, Enterprise) or an Anthropic" \
+    && note "Console account — the free plan does not include it; the first run of claude logs you in"
 
   have git && c=1 || { c=0; missing_core=1; }
   report $c "git" "every project is a repo; the spine is versioned" \

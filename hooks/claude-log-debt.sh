@@ -60,7 +60,17 @@ cwd     = hook.get("cwd") or ""
 if not session:
     quit_quiet()
 
-# --- scope: a Claude project is a dir with CLAUDE.md AND sessions/ ---------
+# --- SESSIONS/ vs sessions/ ------------------------------------------------
+# D23 renamed sessions/ -> SESSIONS/. Accept either, as the Stop and handoff guards
+# do; looking only for `sessions/` worked solely because the default macOS volume
+# ignores case, and would go silent on a case-sensitive one (Task #43).
+def sessdir(root):
+    for n in ("SESSIONS", "sessions"):
+        if os.path.isdir(os.path.join(root, n)):
+            return n
+    return None
+
+# --- scope: a Claude project is a dir with CLAUDE.md AND SESSIONS/ (or legacy sessions/)
 def project_root(start):
     home = os.path.realpath(os.path.expanduser("~"))
     d = os.path.realpath(start) if start else ""
@@ -68,7 +78,7 @@ def project_root(start):
         if not d or d == "/":
             return None
         if (os.path.isfile(os.path.join(d, "CLAUDE.md"))
-                and os.path.isdir(os.path.join(d, "sessions"))):
+                and sessdir(d)):
             return d
         if d == home:
             return None
@@ -132,7 +142,7 @@ def count_prompts(tpath):
     return n
 
 def find_log(root, session):
-    for cand in sorted(glob.glob(os.path.join(root, "sessions", "*.md"))):
+    for cand in sorted(glob.glob(os.path.join(root, sessdir(root) or "SESSIONS", "*.md"))):
         try:
             with open(cand, encoding="utf-8", errors="replace") as fh:
                 head = [next(fh, "") for _ in range(10)]

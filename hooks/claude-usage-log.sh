@@ -20,7 +20,7 @@ HOOK_JSON="$(cat)"
 export HOOK_JSON OUTFILE
 
 python3 - <<'PY' || true
-import os, json, csv, tempfile
+import os, io, json, csv, tempfile
 
 outfile = os.environ["OUTFILE"]
 
@@ -84,15 +84,31 @@ row = {
 FIELDS = list(row.keys())
 
 # --- upsert this session's row, keeping all others ------------------------
+# A file that exists but cannot be read is LEFT ALONE, never rewritten (Task #43).
+# The earlier version started clean on any read failure, which rewrote the file with
+# this one row — and an online-only Dropbox file reads as empty (D17), so that would
+# have erased every other session's history. Skipping one update is the cheap side.
 rows = []
-if os.path.exists(outfile) and os.path.getsize(outfile) > 0:
+if os.path.exists(outfile):
     try:
         with open(outfile, newline="", encoding="utf-8") as fh:
-            for r in csv.DictReader(fh):
+            text = fh.read()
+    except Exception:
+        raise SystemExit(0)
+    if text.strip():
+        try:
+            reader = csv.DictReader(io.StringIO(text))
+            if "session_id" not in (reader.fieldnames or []):
+                raise SystemExit(0)  # not the CSV this hook writes
+            for r in reader:
                 if r.get("session_id") != session:
                     rows.append(r)
-    except Exception:
-        rows = []                    # unreadable CSV: start clean rather than crash
+        except SystemExit:
+            raise
+        except Exception:
+            raise SystemExit(0)
+    elif os.path.getsize(outfile) > 0:
+        raise SystemExit(0)          # has a size but reads empty: online-only (D17)
 rows.append(row)
 
 # --- atomic write ---------------------------------------------------------

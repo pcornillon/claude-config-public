@@ -3,6 +3,16 @@
 Each entry is one build of this starter. The rules it ships are shaped by numbered
 decisions upstream; these are the ones that arrived since the previous build.
 
+## 2026-10-20 17:20 UTC — source `0509250`
+
+No new decisions behind this build.
+
+**4 file(s) changed since the previous build**, in:
+
+- the hooks — `hooks/README.md`, `hooks/claude-log-debt.sh`, `hooks/claude-usage-log.sh`
+- the scripts — `check-prereqs.sh`, `hooks/claude-log-debt.sh`, `hooks/claude-usage-log.sh`
+- documentation — `hooks/README.md`
+
 ## 2026-10-12 19:34 UTC — source `dfda027`
 
 **3 new decision(s) behind this build:**
