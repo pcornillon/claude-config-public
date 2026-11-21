@@ -1,6 +1,6 @@
 {
-  "source_commit": "278227a",
-  "built": "2026-11-21 03:16 UTC",
+  "source_commit": "90f2cb7",
+  "built": "2026-11-21 20:57 UTC",
   "decisions": [
     "D1",
     "D2",
@@ -70,7 +70,7 @@
     "check-prereqs.sh": "91f36c03a05a652bfed7b4158cfb4672f3506046",
     "LICENSE": "824f91dd5e9b2a0921e3dece8c2b16a3a1794bb2",
     "foreign-keys.sh": "3560efca4cad60ca852b64f35bd9d20425b433d7",
-    "session-transcript.sh": "6543e3668f941742affaa7ee130b07e5dcb13526",
+    "session-transcript.sh": "73d4fcdd5997cf0f34f75ac757f735fb628abcfd",
     "install.sh": "67cc6e71ed2bcacd6badfec9f09fde5ede13e15e",
     "STATUS.md": "e32d8453a8e034efadda336c031c2425fabe24fc",
     "INSTALL_AND_CONFIGURE.md": "2ef9cafea6ac6a242dafb22fc0ba6d2125f1a37f",
@@ -106,6 +106,7 @@
     "global/templates/project/CLAUDE.md": "298253f60ed5d5618f1501b3b21b97658f1090bf",
     "global/templates/project/DECISIONS.md": "35a4016a78cfe7ed943b042b8033997a39d95563",
     "global/commands/last.md": "dc516c392cfcd9472fe08b114d7e451c5947d1bb",
+    "global/commands/explain-permission-prompt.md": "f70d42063cd1f378f44991e201f47b30e51236f4",
     "global/commands/new-project.md": "69b5ec3f4df694855a5addf5b80055b1ccc315b0",
     "global/commands/audit-project.md": "d7cac5a20fc8a6ecac869b5d10b0b3ca737cb506",
     "global/skills/markdown-tables/SKILL.md": "8e762b818ad592282dadf147ee0155b04b7f9766"

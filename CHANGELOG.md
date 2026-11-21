@@ -3,6 +3,16 @@
 Each entry is one build of this starter. The rules it ships are shaped by numbered
 decisions upstream; these are the ones that arrived since the previous build.
 
+## 2026-11-21 20:57 UTC — source `90f2cb7`
+
+No new decisions behind this build.
+
+**2 file(s) changed since the previous build**, in:
+
+- the slash commands — `global/commands/explain-permission-prompt.md`
+- the scripts — `session-transcript.sh`
+- documentation — `global/commands/explain-permission-prompt.md`
+
 ## 2026-11-21 03:16 UTC — source `278227a`
 
 **2 new decision(s) behind this build:**

@@ -32,7 +32,9 @@
 # authoritative than a 78-character excerpt of one, so an index below the entries
 # is duplication. Any existing index section is dropped on the first run.
 #
-# Usage:  ./session-transcript.sh <session-log.md> [transcript.jsonl]
+# Usage:  ./session-transcript.sh [--models-only] <session-log.md> [transcript.jsonl]
+#         --models-only rewrites the `Models:` line and nothing else, leaving the
+#         rest of the file byte-for-byte as it is (the D62 backfill of older logs)
 #         (the JSONL defaults to the one whose name matches the log's
 #          `<!-- session: … -->` comment, under ~/.claude/projects/)
 #
@@ -40,6 +42,9 @@
 # only be rebuilt there.
 
 set -uo pipefail
+MODELS_ONLY=0
+if [ "${1:-}" = "--models-only" ]; then MODELS_ONLY=1; shift; fi
+export MODELS_ONLY
 log="${1:-}"
 [ -f "$log" ] || { echo "usage: $0 <session-log.md> [transcript.jsonl]" >&2; exit 2; }
 
@@ -317,6 +322,28 @@ def span(m):
 MODELS_LINE = ("Models: " + "; ".join(span(m) for m in order)) if order else None
 MODELS_RE = re.compile(r"^Models: .*$\n?", re.M)
 
+def with_models(header):
+    """The header with its Models line regenerated below the session comment."""
+    hl = MODELS_RE.sub("", header).split("\n")
+    at = next((i + 1 for i, ln in enumerate(hl[:10]) if "<!-- session:" in ln),
+              1 if hl and hl[0].startswith("#") else 0)
+    hl.insert(at, MODELS_LINE)
+    if at + 1 < len(hl) and hl[at + 1].strip():
+        hl.insert(at + 1, "")
+    return "\n".join(hl).rstrip()
+
+if os.environ.get("MODELS_ONLY") == "1":
+    whole = open(log, encoding="utf-8").read()
+    if not MODELS_LINE:
+        sys.exit(0)                       # nothing to write; leave any old line alone
+    hm = re.search(r"^## +(?:P\d+\b|⚙ +Background event\b)", whole, re.M)
+    cut = hm.start() if hm else len(whole)
+    new = with_models(whole[:cut].rstrip()) + ("\n\n" + whole[cut:] if hm else "\n")
+    if new != whole:
+        open(log, "w", encoding="utf-8").write(new)
+    print("%s: %s" % (log, MODELS_LINE))
+    sys.exit(0)
+
 # --- carry the human-written parts of the existing log across --------------
 body = open(log, encoding="utf-8").read()
 
@@ -342,13 +369,7 @@ header = body[:heads[0].start()].rstrip() if heads else body.rstrip()
 # as its own paragraph. With no model records to go on, the old line is left exactly
 # where it is — the JSONLs expire, and the line is what outlives them.
 if MODELS_LINE:
-    hl = MODELS_RE.sub("", header).split("\n")
-    at = next((i + 1 for i, ln in enumerate(hl[:10]) if "<!-- session:" in ln),
-              1 if hl and hl[0].startswith("#") else 0)
-    hl.insert(at, MODELS_LINE)
-    if at + 1 < len(hl) and hl[at + 1].strip():
-        hl.insert(at + 1, "")
-    header = "\n".join(hl).rstrip()
+    header = with_models(header)
 
 subjects, notes = {}, {}
 bg_seen = 0
