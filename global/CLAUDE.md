@@ -97,6 +97,21 @@ instruction could be read either way, it names its subject explicitly.
 - **Still asks:** anything hard to undo or that reaches other people (deleting,
   publishing, rewriting history, editing `global/CLAUDE.md` or `settings.json`);
   anything that changes the science or a manuscript's claims; and anything only I know.
+- **Permission prompts in plain English** (`claude-config-public` Task #46). Whenever a tool
+  call may stop for my approval, the description you give it is the only plain text in
+  the prompt, so it must say **what will happen, to what, by name**: "Delete the folder
+  `DOCS/old_figures`", "Move `DOCS/MDPI_template_ACS` into `DOCS/journal_requirements/`",
+  "Download a page from code.claude.com", "Push `main` to GitHub". Never a summary of
+  intent ("Sync, then move the template folder") and never shell vocabulary. **Put the
+  step that needs approval in a command of its own**, not fourth in a chain of five:
+  "Yes" approves the whole chain, so a delete or move buried among `git pull`, `du`
+  and `ls` is a "Yes" I give without knowing what it covers. (2026-11-20, after a
+  prompt in `example-manuscript` that did exactly that: "Right now I
+  just give permission without knowing what claude wants to do, which defeats the whole
+  purpose of asking me in the first place.") For
+  `rm`, `rmdir`, `mv`, `trash`, `git rm` and `git mv`, the hook
+  `claude-plain-permission.sh` also writes the sentence itself; that is a backstop, not
+  a licence for a vague description.
 - **`FOLLOW-ON:` is for what comes next, not for a question.** If you are telling me
   what you will do after I answer, mark it that way. An `ASK #n:` I cannot act on
   until some earlier step is done is not an ask — it dilutes the ones that are.
@@ -222,6 +237,16 @@ An empty `LATEX/` says "no manuscript here", which is information. **Code, build
 tooling and entry points never move into them**: `src/`, `hooks/`, `global/`, a
 `.lua` module — imports and registered paths point at those, so they stay put and
 stay lowercase.
+
+**`LATEX/` and Overleaf (D61).** When a manuscript is also edited in Overleaf, Overleaf
+holds the contents of `LATEX/` only, kept in step through Overleaf's own git remote by an
+`overleaf.sh` at the repo root — `pull` before editing the manuscript, `push` after
+committing — and **never by Overleaf's GitHub sync**. GitHub sync imports the whole
+repository, and the session logs and analyses outgrow Overleaf's 7 MB limit on editable
+text; a project linked that way cannot be unlinked, only replaced by a new one. The
+reference implementation is `example-manuscript/overleaf.sh` (that
+repo's D80): it pushes snapshots of `LATEX/`, not its history, because the history
+carries every committed PDF.
 
 **`ISSUE_ANALYSES/` (D22).** An investigation — a cross-check, a reproduction, a
 "why does this look wrong" — gets `ISSUE_ANALYSES/<issue>/`, holding its notes and

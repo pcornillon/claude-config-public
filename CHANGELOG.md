@@ -3,6 +3,21 @@
 Each entry is one build of this starter. The rules it ships are shaped by numbered
 decisions upstream; these are the ones that arrived since the previous build.
 
+## 2026-11-21 03:16 UTC — source `278227a`
+
+**2 new decision(s) behind this build:**
+
+- **D61** — Sync Overleaf with `LATEX/` only, through Overleaf's git remote
+- **D62** — Record the Claude models a session used in its log header, written by the script from the JSONL
+
+**5 file(s) changed since the previous build**, in:
+
+- **the working rules** — `global/CLAUDE.md`, the file you are invited to rewrite. A pull conflicts here if you have
+- the hooks — `hooks/README.md`, `hooks/claude-plain-permission.sh`
+- `settings.json` — `global/settings.json`
+- the scripts — `hooks/claude-plain-permission.sh`, `session-transcript.sh`
+- documentation — `hooks/README.md`
+
 ## 2026-10-20 17:20 UTC — source `0509250`
 
 No new decisions behind this build.

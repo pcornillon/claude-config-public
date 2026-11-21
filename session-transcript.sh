@@ -12,6 +12,10 @@
 #   * the header, meaning everything above the first `## P` heading, and
 #   * each entry's subject line and its optional `### Notes` block.
 #
+# One line inside the header is NOT carried but regenerated: `Models:`, below the
+# `<!-- session: … -->` comment, naming the Claude models that replied and when (D62).
+# It is kept as it stands only when the JSONL has no model records to rebuild it from.
+#
 # Two kinds of entry are written. A prompt gets `## P##`, numbered strictly one per
 # prompt. A turn produced by a finished background job waking the session gets
 # `## ⚙ Background event` and no number at all (D51): the owner typed nothing, so numbering
@@ -255,6 +259,64 @@ for line in open(tpath, encoding="utf-8", errors="replace"):
 if not turns:
     sys.exit("%s: no prompts found in %s" % (log, tpath))
 
+# --- which Claude models replied, and when (D62) ---------------------------
+# Read from the JSONL, never from Claude's own account of itself: a manuscript has to
+# name the models it used, and the JSONLs that record them expire, so the session log
+# is the lasting record. Subagent replies live in <session-id>/subagents/*.jsonl next
+# to the main file; they count as models the session used, so they are read too and
+# a model seen only there is marked "subagents only". One entry per model, in order of
+# first use, with the local dates of its first and last reply.
+def day(ts):
+    s = stamp(ts)
+    return None if s == "unknown" else s[:10]
+
+models, model_main, first_ts = {}, set(), {}   # model -> [first day, last day]
+def note_model(r, main):
+    if r.get("type") != "assistant":
+        return
+    m = (r.get("message") or {}).get("model")
+    if not isinstance(m, str) or not m or m.startswith("<"):
+        return                            # no model, or "<synthetic>"
+    d = day(r.get("timestamp", ""))
+    if d is None:
+        return
+    if main:
+        model_main.add(m)
+    ts = r.get("timestamp", "")
+    if m not in first_ts or ts < first_ts[m]:
+        first_ts[m] = ts                  # ISO UTC stamps sort as strings
+    if m not in models:
+        models[m] = [d, d]
+    else:
+        models[m][0], models[m][1] = min(models[m][0], d), max(models[m][1], d)
+
+def scan(path, main):
+    try:
+        for ln in open(path, encoding="utf-8", errors="replace"):
+            if '"model"' not in ln:
+                continue
+            try:
+                note_model(json.loads(ln), main)
+            except Exception:
+                pass
+    except OSError:
+        pass
+
+scan(tpath, True)
+import glob as _glob
+for sp in sorted(_glob.glob(os.path.join(tpath[:-len(".jsonl")], "subagents", "*.jsonl"))):
+    scan(sp, False)
+order = sorted(models, key=lambda m: first_ts[m])   # first use, main and subagents together
+
+def span(m):
+    a, b = models[m]
+    z = " " + ZLABEL if ZLABEL else ""
+    rng = a if a == b else "%s – %s" % (a, b)
+    return "%s (%s%s%s)" % (m, rng, z, "" if m in model_main else ", subagents only")
+
+MODELS_LINE = ("Models: " + "; ".join(span(m) for m in order)) if order else None
+MODELS_RE = re.compile(r"^Models: .*$\n?", re.M)
+
 # --- carry the human-written parts of the existing log across --------------
 body = open(log, encoding="utf-8").read()
 
@@ -274,6 +336,19 @@ if ixm:
 P_HEAD = re.compile(r"^## +(?:P(\d+)\b|⚙ +Background event\b)(.*)$", re.M)
 heads = list(P_HEAD.finditer(body))
 header = body[:heads[0].start()].rstrip() if heads else body.rstrip()
+
+# The Models line is regenerated, not carried: drop the old one and write the new one
+# directly below the <!-- session: --> comment (or below the title if there is none),
+# as its own paragraph. With no model records to go on, the old line is left exactly
+# where it is — the JSONLs expire, and the line is what outlives them.
+if MODELS_LINE:
+    hl = MODELS_RE.sub("", header).split("\n")
+    at = next((i + 1 for i, ln in enumerate(hl[:10]) if "<!-- session:" in ln),
+              1 if hl and hl[0].startswith("#") else 0)
+    hl.insert(at, MODELS_LINE)
+    if at + 1 < len(hl) and hl[at + 1].strip():
+        hl.insert(at + 1, "")
+    header = "\n".join(hl).rstrip()
 
 subjects, notes = {}, {}
 bg_seen = 0
@@ -326,7 +401,7 @@ for t in turns:
     if t.get("bg") is None:
         pnum += 1                            # P## counts prompts, and only prompts
         key = ("P", pnum)
-        subj = subjects.get(key) or " ".join(t["prompt"].split())[:60]
+        subj = subjects.get(key) or " ".join(t["prompt"].split())[:60].rstrip()
         out += ["## P%d · %s · %s" % (pnum, t["stamp"], subj), "",
                 "### Prompt", "",
                 "\n".join("> " + ln if ln else ">" for ln in t["prompt"].split("\n")), "",

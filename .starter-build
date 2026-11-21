@@ -1,6 +1,6 @@
 {
-  "source_commit": "0509250",
-  "built": "2026-10-20 17:20 UTC",
+  "source_commit": "278227a",
+  "built": "2026-11-21 03:16 UTC",
   "decisions": [
     "D1",
     "D2",
@@ -61,14 +61,16 @@
     "D57",
     "D58",
     "D59",
-    "D60"
+    "D60",
+    "D61",
+    "D62"
   ],
   "files": {
     "prompt-index.sh": "06a4ffca3c1b4af9acee64e9f10b9ecb3a327d37",
     "check-prereqs.sh": "91f36c03a05a652bfed7b4158cfb4672f3506046",
     "LICENSE": "824f91dd5e9b2a0921e3dece8c2b16a3a1794bb2",
     "foreign-keys.sh": "3560efca4cad60ca852b64f35bd9d20425b433d7",
-    "session-transcript.sh": "fb293b9cf7934a160bffc2f5a030aae9e698c338",
+    "session-transcript.sh": "6543e3668f941742affaa7ee130b07e5dcb13526",
     "install.sh": "67cc6e71ed2bcacd6badfec9f09fde5ede13e15e",
     "STATUS.md": "e32d8453a8e034efadda336c031c2425fabe24fc",
     "INSTALL_AND_CONFIGURE.md": "2ef9cafea6ac6a242dafb22fc0ba6d2125f1a37f",
@@ -91,11 +93,12 @@
     "hooks/claude-dashboard-state.sh": "b6c6b4f4eb150dac53cd8c99188fff959fd4bd34",
     "hooks/claude-decision-number-guard.sh": "e6cf027427e8ba2195320259bef5ca241ceed008",
     "hooks/claude-log-guard.sh": "1869b79fcd34067868227ce96aea1b943ff08e21",
-    "hooks/README.md": "72b788cce73fcc0f036d3d9110d796cafd916389",
+    "hooks/claude-plain-permission.sh": "b7258efd4cfe0ad6d7bace9165c94701b73cba0c",
+    "hooks/README.md": "1e19d16b64e9de267f772c025f92978337ecdb35",
     "hooks/claude-cwd-guard.sh": "580de9f4bf371df860e505493a87a5e35adb96f9",
     "hooks/claude-prose-log.sh": "f3e43f12a23d2ea80ce2c94d3aa43047003b20bd",
-    "global/settings.json": "6e8bd1c6b532ae3c3990afee99a768dad2e79e10",
-    "global/CLAUDE.md": "2c203196a88d3f2aa5629e0b6528f5bdf1889db0",
+    "global/settings.json": "d0cfaa75215f344bfe587e8871bc5738a9684ea9",
+    "global/CLAUDE.md": "c4cddd1e41a0ec27c88c9eb41d6d383dab5c1ca7",
     "global/templates/project/STATUS.md": "39413bd6e76c9f36ec7067cda061063f465ba355",
     "global/templates/project/README.md": "71902fdc6cb50c56417bcaf93912a867d1ed570b",
     "global/templates/project/TASKS.md": "c8288f1fe72bb73d9f485284034a102974549619",

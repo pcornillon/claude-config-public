@@ -144,12 +144,23 @@
             "type": "command",
             "command": "bash \"$HOME/Git_Repos/claude-config-public/hooks/claude-decision-number-guard.sh\"",
             "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "bash \"$HOME/Git_Repos/claude-config-public/hooks/claude-plain-permission.sh\"",
+            "timeout": 10
           }
         ]
       }
     ]
   },
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "autoCompactWindow": 400000
+    }
+  },
   "tui": "fullscreen",
-  "agentPushNotifEnabled": true,
-  "inputNeededNotifEnabled": true
+  "theme": "dark",
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true
 }

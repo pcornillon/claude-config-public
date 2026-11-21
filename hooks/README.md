@@ -62,6 +62,7 @@ reaches only sessions started after it.
 <tr><td><code>claude-repo-freshness.sh</code></td><td><code>SessionStart</code></td><td>no</td><td>fetches, and warns if the checkout is behind its upstream</td></tr>
 <tr><td><code>claude-handoff-guard.sh</code></td><td><code>PostToolUse</code> on a <code>git push</code></td><td>no (warn-only)</td><td>after a push, warns if the handoff looks unfinished</td></tr>
 <tr><td><code>claude-decision-number-guard.sh</code></td><td><code>PreToolUse</code> on a <code>git commit</code></td><td><b>yes</b></td><td>refuses a commit while <code>DECISIONS.md</code> repeats a <code>D##</code> number</td></tr>
+<tr><td><code>claude-plain-permission.sh</code></td><td><code>PreToolUse</code> on a delete or move</td><td>no (adds text)</td><td>puts a plain-English sentence in the permission prompt: what is deleted or moved, where, and what else "Yes" runs</td></tr>
 <tr><td><code>claude-dashboard-state.sh</code></td><td>five events</td><td>no</td><td>tells <code>claude-switchboard</code> what each session is doing</td></tr>
 </tbody>
 </table>
@@ -202,6 +203,25 @@ reaches only sessions started after it.
   number permanently breaks every citation of it. It is a `PreToolUse` hook rather
   than a git hook because git hooks are per-clone and not carried by `git clone`;
   this reaches every repository at once.
+
+### `claude-plain-permission.sh` — say what the prompt is asking
+
+- **Event:** `PreToolUse` on the Bash tool; acts only when a step of the command is
+  `rm`, `rmdir`, `mv`, `trash`, `git rm` or `git mv` (also behind `sudo`, `env` or
+  `xargs`). Timeout 10 s.
+- **Does:** returns `permissionDecision: "ask"` with a reason Claude Code shows in the
+  prompt — each delete or move in plain words, with the real path, whether it is a file
+  or a folder and how many files the folder holds, whether a move replaces an existing
+  file, what a wildcard matches; then every other step the same "Yes" approves. It
+  follows a `cd` earlier in the command, and ignores heredoc bodies and quoted text.
+- **Never adds a prompt or removes one:** the ask rules in `global/settings.json` stop
+  these same commands anyway. It cannot help with any other prompt, because a hook
+  cannot tell whether a command was going to prompt; those rely on the description rule
+  in `global/CLAUDE.md` ("Permission prompts in plain English").
+- **Why (Task #46):** a prompt that showed five chained steps and the description "Sync,
+  then move the template folder" named neither the folder nor where it went.
+- **Not covered:** `find -delete`, `find -exec rm`, deletes inside a script the command
+  runs, and paths held in shell variables (it says the path is unknown until it runs).
 
 ### `claude-dashboard-state.sh` — what `claude-switchboard` displays
 
